@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도영상담소 - 사주상담</title>
     <style>
-        /* [기존 스타일 유지] */
+        /* [기본 스타일 유지] */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', '맑은 고딕', sans-serif; min-height: 100vh; }
         .app-container { max-width: 500px; margin: 0 auto; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.15); overflow: hidden; display: flex; flex-direction: column; position: relative; background-image: url('bg01.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
@@ -13,7 +13,8 @@
         .header, .nav-tabs, .content, .footer { position: relative; z-index: 1; }
         .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
         .header-left { display: flex; align-items: center; gap: 12px; }
-        .header-logo-img { height: 26px; width: auto; } /* dd1.png 크기 조절 */
+        /* dd1.png 로고 스타일 */
+        .header-logo-img { height: 26px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
         .header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
         .header-right { display: flex; gap: 15px; }
         .header-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; transition: all 0.2s; }
@@ -32,7 +33,7 @@
         .intro-btn { background: white; color: #667eea; border: none; padding: 14px 45px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .section-title { font-size: 18px; font-weight: bold; color: #1a1a2e; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #667eea; }
         .section-content { background: rgba(255,255,255,0.8); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #667eea; margin-bottom: 15px; }
-        .btn { display: block; width: 100%; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; margin-top: 10px; }
+        .btn { display: block; width: 100%; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; margin-top: 15px; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .footer { background: rgba(240, 240, 240, 0.9); padding: 15px 20px; text-align: center; font-size: 12px; color: #666; }
     </style>
@@ -98,9 +99,8 @@
             <br><br>
              "내 운빨은 내가 커스텀한다! 인생 최적화 패치, 부적"
              부적을 아직도 옛날이야기로만 생각하시나요? 요즘 부적은 내 미래를 긍정적인 방향으로 가이드하는 **'운명 커스터마이징 툴'**이에요. 복잡한 알고리즘 속에서 지친 당신을 위한 '멘탈 로그아웃' 방지용 장치라고 할까요?
-             서양에서 탄생석이나 별자리 주얼리를 몸에 지니며 **'굿 바이브(Good Vibes)'**를 유지하는 것, 혹은 북유럽에서 행운을 상징하는 '달라호스(Dala Horse)' 인형을 두는 것과 결이 같아요.
-            </div>
-            <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
+             서양에서 탄생석이나 별자리 주얼리를 몸에 지니며 **'굿 바이브(Good Vibes)'**를 유지하는 것, 혹은 북유럽에서 행운을 상징하는 '달라호스(Dala Horse)' 인형을 두는 것과 결이 같아요.</div>
+             <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
             </div>
 
             <div id="note-screen" class="screen">
@@ -125,11 +125,9 @@
             btns[tabIndex].classList.add('active');
             document.querySelector('.content').scrollTop = 0;
         }
-
         function contactKakao() {
             window.open('https://forms.gle/QgJkXu6n8UXowB2N6', '_blank'); 
         }
-
         function toggleSettings() { alert('설정 메뉴입니다.'); }
     </script>
 </body>
