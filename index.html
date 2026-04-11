@@ -50,44 +50,23 @@
             position: sticky; top: 0; z-index: 100;
         }
 
-        /* ============ 네비게이션 탭 (반투명 처리) ============ */
-        .nav-tabs {
-            display: flex;
-            background: rgba(255, 255, 255, 0.9);
-            border-bottom: 2px solid #e8e8e8;
-            overflow-x: auto;
-            position: sticky; top: 62px; z-index: 99;
-        }
-
-        /* ============ [Intro] 화면 (배경 투명하게 수정) ============ */
-        #intro-screen {
-            /* 기존 보라색 그라데이션 제거 후 반투명 처리 */
-            background: rgba(102, 126, 234, 0.7) !important; 
-            color: white;
-            display: flex !important;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            min-height: 100%;
-        }
-
-        /* 나머지 화면들 배경 투명화 (공통) */
-        .screen { background: transparent !important; background-image: none !important; }
-
-        /* [이후 기존 원본 스타일 유지...] */
+        /* ============ [명령 1] 로고 교체 스타일 ============ */
         .header-left { display: flex; align-items: center; gap: 12px; }
-        .logo { font-size: 28px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        /* 별 대신 dd1.png 크기 조절 */
+        .header-logo-img { height: 24px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
         .header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+
+        /* ============ [기존 스타일 유지...] ============ */
         .header-right { display: flex; gap: 15px; }
         .header-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; transition: all 0.2s; }
+        .nav-tabs { display: flex; background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e8e8e8; overflow-x: auto; position: sticky; top: 62px; z-index: 99; }
         .nav-btn { flex: 1; padding: 13px 12px; border: none; background: none; cursor: pointer; font-size: 12px; font-weight: 600; color: #888; border-bottom: 3px solid transparent; transition: all 0.3s; white-space: nowrap; min-width: 70px; }
         .nav-btn.active { color: #667eea; border-bottom-color: #667eea; background: rgba(102, 126, 234, 0.1); }
         .content { flex: 1; overflow-y: auto; padding: 0; }
         .screen { display: none; min-height: 100%; animation: fadeIn 0.4s ease-in; padding: 25px 20px; }
         .screen.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #intro-screen { background: rgba(102, 126, 234, 0.7) !important; color: white; display: flex !important; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; min-height: 100%; }
         .intro-logo { font-size: 80px; margin-bottom: 25px; animation: bounce 2s infinite; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .intro-title { font-size: 32px; font-weight: bold; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
@@ -95,9 +74,7 @@
         .intro-btn { background: white; color: #667eea; border: none; padding: 14px 45px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .section-title { font-size: 18px; font-weight: bold; color: #1a1a2e; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #667eea; }
         .section-content { background: rgba(255,255,255,0.8); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #667eea; }
-        .principle-item { display: flex; gap: 15px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.6); border-radius: 10px; }
-        .principle-num { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: #667eea; color: white; border-radius: 50%; font-weight: bold; flex-shrink: 0; }
-        .btn { flex: 1; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; }
+        .btn { flex: 1; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; margin-top: 20px; /* 버튼 위 간격 추가 */ }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .footer { background: rgba(240, 240, 240, 0.9); padding: 15px 20px; text-align: center; font-size: 12px; color: #666; }
     </style>
@@ -106,7 +83,7 @@
     <div class="app-container">
         <div class="header">
             <div class="header-left">
-                <div class="logo">✨</div>
+                <img src="dd1.png" alt="로고" class="header-logo-img">
                 <div class="header-title">도영상담소</div>
             </div>
             <div class="header-right">
@@ -137,33 +114,37 @@
                 <div class="section">
                     <h2 class="section-title">내 운명의 모든 길을 한눈에</h2>
                     <div class="section-content">
-                        <p>30년의 통찰과 현대적 감각이 만나, 당신의 삶에 가장 선명한 해답을 제시합니다.
-                            운세 상담부터 새 출발을 위한 작명까지, 그리고 육효와 부적까지 !
-                             도영 마스터의 모든 솔루션을 만나보세요.
-                            </p>
+                        <p>30년의 통찰과 현대적 감각이 담다. 당신의 삶에 가장 선명한 해답을 제시합니다.</p>
                     </div>
                 </div>
                 <div class="action-buttons" style="display:flex; gap:10px;">
-                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
                 </div>
             </div>
 
-            <div id="naming-screen" class="screen"><h2 class="section-title">작명 서비스</h2><div class="section-content">"사주가 인생의 '기본 운영체제(OS)'라면, 작명은 내 캐릭터의 능력치를 극대화하는 '최고급 커스텀 장비'입니다! 🚀
-                태어날 때 주어진 사주가 조금 아쉽나요? 내 사주의 부족한 에너지를 채우고 장점은 떡상시켜줄 완벽한 오행 핏(Fit)으로 내 운명에 강력한 '버프(Buff)'를 걸어보세요.
-                단순히 예쁜 한자 조합이 아닙니다. 내 환경과 완벽하게 매칭되어 나만의 고유한 주파수를 찾아주는 퍼스널 브랜딩의 완성! ✨ 내 인생을 하드캐리해 줄 '맞춤형 네이밍'으로 결정적 성공의 방아쇠를 당기세요! 🎯"</div></div>
-            <div id="divination-screen" class="screen"><h2 class="section-title">육효/부적 서비스</h2><div class="section-content">"서양에 타로 카드가 있다면, 동양에는 팩폭의 끝판왕 '육효(六爻)'가 있습니다! 🔮
-                사주가 인생 전체를 그리는 '망원경'이라면, 육효는 지금 당장의 고민을 꿰뚫는 '실전 현미경'입니다. 🔬 "썸남에게 오늘 연락할까?", "이 주식 지금 살까?" 같은 구체적인 질문에 타로보다 훨씬 예리하게 답해줍니다.
-                단순한 힐링이나 위로가 아닙니다. 동양의 오랜 통계와 우주의 이치(오행)를 계산해 소름 돋는 YES/NO 타점과 정확한 타이밍(D-Day)까지 짚어냅니다. 🎯 애매모호한 조언에 지치셨나요? 단 한 번의 클릭으로 명쾌한 해답을 얻으세요. 당신의 결정적 순간, 육효가 가장 완벽한 내비게이션이 되어 드립니다!
-             🚀".
-            
-             "내 운빨은 내가 커스텀한다! 인생 최적화 패치, 부적"
-             부적을 아직도 옛날이야기로만 생각하시나요? 요즘 부적은 내 미래를 긍정적인 방향으로 가이드하는 **'운명 커스터마이징 툴'**이에요. 복잡한 알고리즘 속에서 지친 당신을 위한 '멘탈 로그아웃' 방지용 장치라고 할까요?
-             서양에서 탄생석이나 별자리 주얼리를 몸에 지니며 **'굿 바이브(Good Vibes)'**를 유지하는 것, 혹은 북유럽에서 행운을 상징하는 '달라호스(Dala Horse)' 인형을 두는 것과 결이 같아요.
-            
-            
-            
-            </div></div>
-            <div id="note-screen" class="screen"><h2 class="section-title">공지사항</h2><div class="section-content">모든 상담은 예약제로 진행됩니다.</div></div>
+            <div id="naming-screen" class="screen">
+                <h2 class="section-title">작명 서비스</h2>
+                <div class="section-content">이름은 당신의 첫 번째 브랜드입니다. 좋은 이름은 평생의 행운을 불러옵니다.</div>
+                <div class="action-buttons" style="display:flex; gap:10px;">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
+                </div>
+            </div>
+
+            <div id="divination-screen" class="screen">
+                <h2 class="section-title">육효 & 부적 서비스</h2>
+                <div class="section-content">지금 당신에게 필요한 '충신'을 드립니다. 운명을 바꾸는 작은 시작.</div>
+                <div class="action-buttons" style="display:flex; gap:10px;">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
+                </div>
+            </div>
+
+            <div id="note-screen" class="screen">
+                <h2 class="section-title">공지사항</h2>
+                <div class="section-content">모든 상담은 예약제로 진행됩니다. 1:1 맞춤 상담을 위해 미리 연락주세요.</div>
+                <div class="action-buttons" style="display:flex; gap:10px;">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
@@ -184,7 +165,7 @@
 
         function contactKakao() {
             // 소장님의 카카오톡 주소로 변경하세요
-            window.open('https://forms.gle/QgJkXu6n8UXowB2N6', '_blank'); 
+            window.open('https://pf.kakao.com/_abc12', '_blank'); 
         }
 
         function toggleSettings() { alert('설정 메뉴입니다.'); }
