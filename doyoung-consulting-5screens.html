@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도영상담소 - 사주상담</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', '맑은 고딕', sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============ 헤더 ============ */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 28px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.2s;
+        }
+
+        .header-btn:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 2px 4px rgba(255,255,255,0.3));
+        }
+
+        /* ============ 네비게이션 탭 ============ */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-bottom: 2px solid #e8e8e8;
+            overflow-x: auto;
+            position: sticky;
+            top: 62px;
+            z-index: 99;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 13px 12px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+            min-width: 70px;
+        }
+
+        .nav-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8faff;
+        }
+
+        .nav-btn:hover {
+            background: #f8f8f8;
+            color: #667eea;
+        }
+
+        /* ============ 콘텐츠 영역 ============ */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100%;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ [Intro] 화면 ============ */
+        #intro-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #intro-screen::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+        }
+
+        #intro-screen::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .intro-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-logo {
+            font-size: 80px;
+            margin-bottom: 25px;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .intro-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .intro-subtitle {
+            font-size: 14px;
+            opacity: 0.95;
+            margin-bottom: 35px;
+            line-height: 1.8;
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .intro-subtitle.editable {
+            border: 2px dashed rgba(255,255,255,0.5);
+            cursor: text;
+        }
+
+        .intro-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 14px 45px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .intro-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .intro-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* ============ [Home] 화면 ============ */
+        #home-screen {
+            background: linear-gradient(to bottom, #f5f7fa 0%, #fff 100%);
+            padding: 25px 20px;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.08) 0%, transparent 50%);
+        }
+
+        /* ============ [Naming] 화면 ============ */
+        #naming-screen {
+            background: linear-gradient(to bottom, #fff8f0 0%, #fff 100%);
+            padding: 25px 20px;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 140, 80, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 180, 120, 0.08) 0%, transparent 50%);
+        }
+
+        /* ============ [Divination] 화면 ============ */
+        #divination-screen {
+            background: linear-gradient(to bottom, #f0e6ff 0%, #fff 100%);
+            padding: 25px 20px;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(147, 112, 219, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(186, 85, 211, 0.08) 0%, transparent 50%);
+        }
+
+        /* ============ [Note] 화면 ============ */
+        #note-screen {
+            background: linear-gradient(to bottom, #fffaf0 0%, #fff 100%);
+            padding: 25px 20px;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 165, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 200, 100, 0.08) 0%, transparent 50%);
+        }
+
+        /* ============ 섹션 스타일 ============ */
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .section-content {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            line-height: 1.7;
+            color: #333;
+            font-size: 14px;
+            border-left: 4px solid #667eea;
+        }
+
+        .editable {
+            border: 2px dashed #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: text;
+            transition: all 0.2s;
+            background: #fafafa;
+            min-height: 40px;
+            outline: none;
+        }
+
+        .editable:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .editable:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* ============ 서비스 소개 ============ */
+        .service-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .service-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .service-desc {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ============ 원칙 목록 ============ */
+        .principles-list {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .principle-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .principle-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .principle-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .principle-text {
+            flex: 1;
+            color: #333;
+            font-size: 13px;
+            line-height: 1.7;
+            padding-top: 5px;
+        }
+
+        .principle-text.editable {
+            border: 2px dashed #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background: #fafafa;
+            cursor: text;
+        }
+
+        .principle-text.editable:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        /* ============ 공지 항목 ============ */
+        .notice-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffa500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .notice-item-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .notice-item-content {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ============ 액션 버튼 ============ */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* ============ 푸터 ============ */
+        .footer {
+            background: linear-gradient(135deg, #f0f0f0 0%, #f8f8f8 100%);
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            margin-bottom: 8px;
+        }
+
+        .footer-contact {
+            color: #666;
+            font-size: 11px;
+        }
+
+        /* ============ 스크롤바 ============ */
+        .content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+
+        .content::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        /* ============ 반응형 ============ */
+        @media (max-width: 600px) {
+            .app-container {
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .intro-title {
+                font-size: 26px;
+            }
+
+            .service-title {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                font-size: 11px;
+                min-width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- ========== 헤더 ========== -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">✨</div>
+                <div class="header-title">도영상담소</div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" title="알림" onclick="alert('공지 알림을 확인하려면 [공지] 탭을 참고하세요.')">🔔</button>
+                <button class="header-btn" title="설정" onclick="toggleSettings()">⚙️</button>
+            </div>
+        </div>
+
+        <!-- ========== 네비게이션 탭 ========== -->
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showScreen('intro-screen', 0)">소개</button>
+            <button class="nav-btn" onclick="showScreen('home-screen', 1)">홈</button>
+            <button class="nav-btn" onclick="showScreen('naming-screen', 2)">작명</button>
+            <button class="nav-btn" onclick="showScreen('divination-screen', 3)">육효&부적
+            
+            <button class="nav-btn" onclick="showScreen('note-screen', 4)">공지</button>
+        </div>
+
+        <!-- ========== 콘텐츠 영역 ========== -->
+        <div class="content">
+
+            <!-- ========== [Intro] 화면 ========== -->
+            <div id="intro-screen" class="screen active">
+                <div class="intro-content">
+                    <div class="intro-logo">✨</div>
+                    <h1 class="intro-title" id="introTitle" contenteditable="true">도영상담소</h1>
+                    <p class="intro-subtitle editable" id="introSubtitle" contenteditable="true">
+                        당신의 삶을 설계하는 시간<br><br>
+                        (상단부분에 소장님 이미지 삽입)
+                    </p>
+                    <button class="intro-btn" onclick="showScreen('home-screen', 1)">시작하기</button>
+                </div>
+            </div>
+
+            <!-- ========== [Home] 화면 ========== -->
+            <div id="home-screen" class="screen">
+                <div class="section">
+                    <h2 class="section-title">홈 화면: 내 운명의 모든 길을 한눈에</h2>
+                    <div class="section-content">
+                        <p id="homeContent" class="editable" contenteditable="true">
+                            30년의 통찰과 현대적 감각이 담다. 당신의 삶에 기강 선명한 해답을 제시합니다.<br><br>
+                            (배경이미지는 고풍스럽고 운한 사주명 관련 이미지를 넣어줘)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">운세 핵심</h3>
+                    <div class="section-content">
+                        <p id="fortuneKey" class="editable" contenteditable="true">
+                            (배경이미지는 고풍스럽고 운한 사주명의 이미지를 넣어줘)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
+                    <button class="btn btn-secondary" onclick="showScreen('naming-screen', 2)">다음 →</button>
+                </div>
+            </div>
+
+            <!-- ========== [Naming] 화면 ========== -->
+            <div id="naming-screen" class="screen">
+                <div class="service-intro">
+                    <div class="service-icon">✍️</div>
+                    <h2 class="service-title" id="namingTitle" contenteditable="true">작명 서비스</h2>
+                    <p class="service-desc" id="namingDesc" contenteditable="true">
+                        "이름은 당신의 첫 번째 브랜드입니다. 도영 마스터 작명소."
+                    </p>
+                </div>
+
+                <div class="principles-list">
+                    <h3 class="section-title">작명 원칙</h3>
+                    
+                    <div class="principle-item">
+                        <div class="principle-num">1</span>
+                        <div class="principle-text editable" id="principle1" contenteditable="true">
+                            운세 부족한 '손'(木)의 이미지를 넣어줘
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-num">2</span>
+                        <div class="principle-text editable" id="principle2" contenteditable="true">
+                            사주의 부족함을 채우고 장자력을 개우는 '속성'에 들려
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-num">3</span>
+                        <div class="principle-text editable" id="principle3" contenteditable="true">
+                            뜻(Amulet)서비스: (나쁜입답 및 수정 가능하도록 팔 것)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 상담신청</button>
+                    <button class="btn btn-secondary" onclick="showScreen('divination-screen', 3)">다음 →</button>
+                </div>
+            </div>
+
+            <!-- ========== [Divination] 화면 ========== -->
+            <div id="divination-screen" class="screen">
+                <div class="service-intro">
+                    <div class="service-icon">🔮</div>
+                    <h2 class="service-title" id="divinationTitle" contenteditable="true">궁합 서비스</h2>
+                    <p class="service-desc" id="divinationDesc" contenteditable="true">
+                        "고요온 짝체, 햐탈은 명리하지, 지금 당신에게 필요한 '충신'을 드립니다."
+                    </p>
+                </div>
+
+                <div class="principles-list">
+                    <h3 class="section-title">궁합 분석 기준</h3>
+                    
+                    <div class="principle-item">
+                        <div class="principle-num">1</span>
+                        <div class="principle-text editable" id="divination1" contenteditable="true">
+                            정통 명리학의 현대적 해석
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-num">2</span>
+                        <div class="principle-text editable" id="divination2" contenteditable="true">
+                            오행의 원활한 조화
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-num">3</span>
+                        <div class="principle-text editable" id="divination3" contenteditable="true">
+                            소러의 의미의 공명
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 상담신청</button>
+                    <button class="btn btn-secondary" onclick="showScreen('note-screen', 4)">다음 →</button>
+                </div>
+            </div>
+
+            <!-- ========== [Note] 공지/가이드 화면 ========== -->
+            <div id="note-screen" class="screen">
+                <div class="section">
+                    <h2 class="section-title">📢 공지사항</h2>
+                    
+                    <div class="notice-item">
+                        <h3 class="notice-item-title" id="notice1Title" contenteditable="true">작업 중입니다</h3>
+                        <p class="notice-item-content" id="notice1Content" contenteditable="true">
+                            현재 진행 중입니다...
+                        </p>
+                    </div>
+
+                    <div class="notice-item">
+                        <h3 class="notice-item-title" id="notice2Title" contenteditable="true">가이드 안내</h3>
+                        <p class="notice-item-content" id="notice2Content" contenteditable="true">
+                            (배경이미지는 고풍스럽고 운한 사주명의 금(금)의 이미지를 넣어줘)
+                        </p>
+                    </div>
+
+                    <div class="notice-item">
+                        <h3 class="notice-item-title" id="notice3Title" contenteditable="true">상담 안내</h3>
+                        <p class="notice-item-content" id="notice3Content" contenteditable="true">
+                            도영 마스터와의 모든 상담은 예약제입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">💡 사용 가이드</h2>
+                    
+                    <div class="notice-item">
+                        <h3 class="notice-item-title">텍스트 수정 방법</h3>
+                        <p class="notice-item-content">
+                            점선으로 표시된 텍스트를 클릭하면 수정할 수 있습니다.<br>
+                            변경 사항은 저장되지 않습니다 (새로고침하면 원래대로).
+                        </p>
+                    </div>
+
+                    <div class="notice-item">
+                        <h3 class="notice-item-title">배경 이미지 추가</h3>
+                        <p class="notice-item-content">
+                            각 화면의 CSS에서 background-image를 수정하여 배경이미지를 추가할 수 있습니다.
+                        </p>
+                    </div>
+
+                    <div class="notice-item">
+                        <h3 class="notice-item-title">카카오톡 연결</h3>
+                        <p class="notice-item-content">
+                            개발자가 카카오톡 플러스친구 ID를 입력하면 자동 연결됩니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 문의</button>
+                    <button class="btn btn-secondary" onclick="showScreen('intro-screen', 0)">← 처음으로</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ========== 푸터 ========== -->
+        <div class="footer">
+            <div class="footer-content">도영상담소 © 2026 | 모든 상담은 예약제입니다.</div>
+            <div class="footer-contact" id="footerContact" contenteditable="true">
+                📞 010-0000-0000 | 💬 카카오톡 @도영상담소
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== 화면 전환 함수 ==========
+        function showScreen(screenId, tabIndex) {
+            // 모든 화면 숨기기
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+
+            // 모든 탭 비활성화
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+
+            // 선택한 화면과 탭 활성화
+            document.getElementById(screenId).classList.add('active');
+            navBtns[tabIndex].classList.add('active');
+
+            // 스크롤 최상단으로
+            document.querySelector('.content').scrollTop = 0;
+        }
+
+        // ========== 카카오톡 연결 함수 ==========
+        function contactKakao() {
+            // ⚠️ 중요: 아래의 'YOUR_KAKAO_ID'를 실제 카카오톡 플러스친구 ID로 변경하세요
+            // 예: https://pf.kakao.com/_GxfiK (이 부분을 실제 ID로 변경)
+            const kakaoUrl = 'https://pf.kakao.com/YOUR_KAKAO_ID';
+            
+            // 모바일 확인
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // 모바일: 카카오톡 앱으로 열기 시도
+                window.location.href = kakaoUrl;
+            } else {
+                // PC: 새 탭에서 열기
+                window.open(kakaoUrl, '_blank');
+            }
+        }
+
+        // ========== 설정 함수 ==========
+        function toggleSettings() {
+            const message = `⚙️ 설정 및 사용 안내\n\n` +
+                          `✏️ 텍스트 수정:\n` +
+                          `   점선으로 된 텍스트를 클릭하여 수정 가능\n\n` +
+                          `💾 저장:\n` +
+                          `   수정 사항은 자동 저장되지 않습니다\n` +
+                          `   Netlify 배포 후 수정하려면 파일을 다시 업로드하세요\n\n` +
+                          `🎨 배경이미지:\n` +
+                          `   CSS에서 background-image 경로를 변경하세요\n\n` +
+                          `💬 카카오톡 연결:\n` +
+                          `   자바스크립트에서 'YOUR_KAKAO_ID'를 실제 ID로 변경하세요`;
+            
+            alert(message);
+        }
+
+        // ========== 페이지 로드 시 ==========
+        window.addEventListener('load', () => {
+            console.log('✨ 도영상담소 앱이 정상 로드되었습니다.');
+        });
+
+        // ========== 키보드 단축키 ==========
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('[contenteditable]').forEach(el => {
+                    el.blur();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
