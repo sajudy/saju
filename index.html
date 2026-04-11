@@ -5,58 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>도영상담소 - 사주상담</title>
     <style>
-        /* [기존 스타일 유지] */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', '맑은 고딕', sans-serif; min-height: 100vh; }
-
-        /* [핵심 수정] 전체 앱 컨테이너 배경 설정 */
-        .app-container {
-            max-width: 500px;
-            margin: 0 auto;
-            min-height: 100vh;
-            box-shadow: 0 0 40px rgba(0,0,0,0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative; /* 배경 배치를 위해 추가 */
-            /* 소장님의 bg01.jpg를 배경으로 설정 */
-            background-image: url('bg01.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        /* [핵심 수정] 배경을 잔잔하고 연하게 만드는 투명 덮개 */
-        .app-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.82); /* 82% 농도의 연한 흰색 덮개 */
-            z-index: 0;
-        }
-
-        /* [기존 요소들 덮개 위로 올리기] */
+        .app-container { max-width: 500px; margin: 0 auto; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.15); overflow: hidden; display: flex; flex-direction: column; position: relative; background-image: url('bg01.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .app-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.82); z-index: 0; }
         .header, .nav-tabs, .content, .footer { position: relative; z-index: 1; }
-
-        /* ============ 헤더 ============ */
-        .header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            padding: 18px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        /* ============ [명령 1] 로고 교체 스타일 ============ */
+        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
         .header-left { display: flex; align-items: center; gap: 12px; }
-        /* 별 대신 dd1.png 크기 조절 */
-        .header-logo-img { height: 24px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        /* [명령수행] 로고 이미지 스타일 */
+        .header-logo-img { height: 26px; width: auto; }
         .header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
-
-        /* ============ [기존 스타일 유지...] ============ */
         .header-right { display: flex; gap: 15px; }
         .header-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; transition: all 0.2s; }
         .nav-tabs { display: flex; background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e8e8e8; overflow-x: auto; position: sticky; top: 62px; z-index: 99; }
@@ -73,8 +31,8 @@
         .intro-subtitle { font-size: 14px; margin-bottom: 35px; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px); }
         .intro-btn { background: white; color: #667eea; border: none; padding: 14px 45px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .section-title { font-size: 18px; font-weight: bold; color: #1a1a2e; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #667eea; }
-        .section-content { background: rgba(255,255,255,0.8); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #667eea; }
-        .btn { flex: 1; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; margin-top: 20px; /* 버튼 위 간격 추가 */ }
+        .section-content { background: rgba(255,255,255,0.8); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #667eea; margin-bottom: 15px; }
+        .btn { display: block; width: 100%; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s; text-decoration: none; text-align: center; margin-top: 10px; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .footer { background: rgba(240, 240, 240, 0.9); padding: 15px 20px; text-align: center; font-size: 12px; color: #666; }
     </style>
@@ -83,7 +41,7 @@
     <div class="app-container">
         <div class="header">
             <div class="header-left">
-                <img src="dd1.png" alt="로고" class="header-logo-img">
+                <img src="dd1.png" alt="logo" class="header-logo-img">
                 <div class="header-title">도영상담소</div>
             </div>
             <div class="header-right">
@@ -114,34 +72,41 @@
                 <div class="section">
                     <h2 class="section-title">내 운명의 모든 길을 한눈에</h2>
                     <div class="section-content">
-                        <p>30년의 통찰과 현대적 감각이 담다. 당신의 삶에 가장 선명한 해답을 제시합니다.</p>
+                        <p>30년의 통찰과 현대적 감각이 만나, 당신의 삶에 가장 선명한 해답을 제시합니다.</p>
                     </div>
-                </div>
-                <div class="action-buttons" style="display:flex; gap:10px;">
                     <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
                 </div>
             </div>
 
             <div id="naming-screen" class="screen">
-                <h2 class="section-title">작명 서비스</h2>
-                <div class="section-content">이름은 당신의 첫 번째 브랜드입니다. 좋은 이름은 평생의 행운을 불러옵니다.</div>
-                <div class="action-buttons" style="display:flex; gap:10px;">
+                <div class="section">
+                    <h2 class="section-title">작명 서비스</h2>
+                    <div class="section-content">
+                        이름은 당신의 첫 번째 브랜드입니다. 좋은 이름은 평생의 행운을 불러옵니다.<br><br>
+                        - 신생아 작명<br>- 개명 상담<br>- 아호/예명 제작
+                    </div>
                     <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
                 </div>
             </div>
 
             <div id="divination-screen" class="screen">
-                <h2 class="section-title">육효 & 부적 서비스</h2>
-                <div class="section-content">지금 당신에게 필요한 '충신'을 드립니다. 운명을 바꾸는 작은 시작.</div>
-                <div class="action-buttons" style="display:flex; gap:10px;">
+                <div class="section">
+                    <h2 class="section-title">육효 & 부적 서비스</h2>
+                    <div class="section-content">
+                        지금 당신에게 필요한 '충신'을 드립니다. 운명을 바꾸는 작은 시작.<br><br>
+                        - 실시간 육효 점술<br>- 맞춤 제작 부적<br>- 택일 상담
+                    </div>
                     <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
                 </div>
             </div>
 
             <div id="note-screen" class="screen">
-                <h2 class="section-title">공지사항</h2>
-                <div class="section-content">모든 상담은 예약제로 진행됩니다. 1:1 맞춤 상담을 위해 미리 연락주세요.</div>
-                <div class="action-buttons" style="display:flex; gap:10px;">
+                <div class="section">
+                    <h2 class="section-title">공지사항</h2>
+                    <div class="section-content">
+                        모든 상담은 예약제로 진행됩니다. 1:1 맞춤 상담을 위해 미리 연락주세요.<br><br>
+                        - 상담 시간: 평일 10:00 ~ 20:00<br>- 위치: 부천시 (방문 상담 시 사전 예약 필수)
+                    </div>
                     <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 연결</button>
                 </div>
             </div>
@@ -162,12 +127,9 @@
             btns[tabIndex].classList.add('active');
             document.querySelector('.content').scrollTop = 0;
         }
-
         function contactKakao() {
-            // 소장님의 카카오톡 주소로 변경하세요
             window.open('https://pf.kakao.com/_abc12', '_blank'); 
         }
-
         function toggleSettings() { alert('설정 메뉴입니다.'); }
     </script>
 </body>
