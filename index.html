@@ -13,193 +13,105 @@
     <meta property="og:site_name" content="도영상담소">
 
     <style>
+        /* 기존 스타일 동일 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', '맑은 고딕', sans-serif; min-height: 100vh; background-color: #f5f5f5; }
-        
-        .app-container { 
-            max-width: 500px; 
-            margin: 0 auto; 
-            min-height: 100vh; 
-            box-shadow: 0 0 40px rgba(0,0,0,0.15); 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            position: relative; 
-            background-image: url('bg01.jpg'); 
-            background-size: cover; 
-            background-position: center; 
-            background-attachment: fixed; 
-        }
-        
-        .app-container::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; right: 0; bottom: 0; 
-            background-color: rgba(255, 255, 255, 0.85); 
-            z-index: 0; 
-        }
-
+        body { font-family: 'Segoe UI', '맑은 고딕', sans-serif; min-height: 100vh; }
+        .app-container { max-width: 500px; margin: 0 auto; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.15); overflow: hidden; display: flex; flex-direction: column; position: relative; background-image: url('bg01.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .app-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.82); z-index: 0; }
         .header, .nav-tabs, .content, .footer { position: relative; z-index: 1; }
-
-        .header { 
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
-            color: white; 
-            padding: 18px 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-        }
-        
-        .header-logo-img { height: 26px; width: auto; margin-right: 10px; }
+        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-logo-img { height: 26px; width: auto; }
         .header-title { font-size: 18px; font-weight: bold; }
-
-        .nav-tabs { 
-            display: flex; 
-            background: rgba(255, 255, 255, 0.95); 
-            border-bottom: 1px solid #ddd; 
-            position: sticky; 
-            top: 62px; 
-            z-index: 99; 
-        }
-        
-        .nav-btn { 
-            flex: 1; 
-            padding: 15px 5px; 
-            border: none; 
-            background: none; 
-            cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #777; 
-            border-bottom: 3px solid transparent; 
-            transition: 0.3s; 
-        }
-        
-        .nav-btn.active { color: #667eea; border-bottom-color: #667eea; }
-
-        .content { flex: 1; overflow-y: auto; }
-        .screen { display: none; padding: 30px 20px; animation: fadeIn 0.4s ease-in; }
+        .header-right { display: flex; gap: 15px; }
+        .header-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; }
+        .nav-tabs { display: flex; background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e8e8e8; overflow-x: auto; position: sticky; top: 62px; z-index: 99; }
+        .nav-btn { flex: 1; padding: 13px 12px; border: none; background: none; cursor: pointer; font-size: 12px; font-weight: 600; color: #888; border-bottom: 3px solid transparent; white-space: nowrap; min-width: 70px; }
+        .nav-btn.active { color: #667eea; border-bottom-color: #667eea; background: rgba(102, 126, 234, 0.1); }
+        .content { flex: 1; overflow-y: auto; padding: 0; }
+        .screen { display: none; min-height: 100%; padding: 25px 20px; }
         .screen.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* 섹션 스타일 수정: 여백 및 가독성 강화 */
-        .section-title { 
-            font-size: 20px; 
-            font-weight: bold; 
-            color: #1a1a2e; 
-            margin-bottom: 15px; 
-            padding-left: 10px;
-            border-left: 5px solid #667eea;
-        }
-
-        .section-content { 
-            background: rgba(255, 255, 255, 0.9); 
-            border-radius: 15px; 
-            padding: 25px 22px; /* 좌우 여백을 충분히 주어 답답함을 해소 */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-            line-height: 1.8;   /* 줄 간격을 넓혀 가독성 향상 */
-            color: #333; 
-            word-break: keep-all; /* 단어가 중간에 잘리지 않게 설정 */
-            font-size: 15px;
-        }
-
-        .highlight { color: #667eea; font-weight: bold; }
-
-        .btn-primary { 
-            display: block; 
-            width: 100%; 
-            padding: 15px; 
-            margin-top: 25px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            text-align: center; 
-            text-decoration: none; 
-            border-radius: 10px; 
-            font-weight: bold; 
-            font-size: 16px;
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
-        }
-
-        #intro-screen { 
-            background: linear-gradient(rgba(102, 126, 234, 0.8), rgba(102, 126, 234, 0.8)), url('bg01.jpg'); 
-            background-size: cover; 
-            color: white; 
-            text-align: center; 
-            display: flex !important; 
-            flex-direction: column; 
-            justify-content: center; 
-            min-height: calc(100vh - 62px); 
-        }
-
-        .footer { padding: 20px; text-align: center; font-size: 12px; color: #888; background: #f9f9f9; }
+        #intro-screen { background: rgba(102, 126, 234, 0.7) !important; color: white; display: flex !important; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; min-height: 100%; }
+        .intro-logo { font-size: 80px; margin-bottom: 25px; }
+        .intro-title { font-size: 32px; font-weight: bold; margin-bottom: 15px; }
+        .intro-subtitle { font-size: 14px; margin-bottom: 35px; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; backdrop-filter: blur(10px); }
+        .intro-btn { background: white; color: #667eea; border: none; padding: 14px 45px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .section-title { font-size: 18px; font-weight: bold; color: #1a1a2e; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #667eea; }
+        .section-content { background: rgba(255,255,255,0.8); border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #667eea; margin-bottom: 15px; }
+        .btn { display: block; width: 100%; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; margin-top: 15px; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .footer { background: rgba(240, 240, 240, 0.9); padding: 15px 20px; text-align: center; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="header">
-            <div style="display: flex; align-items: center;">
+            <div class="header-left">
                 <img src="dd1.png" alt="logo" class="header-logo-img">
                 <div class="header-title">도영상담소</div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" onclick="alert('공지 알림을 확인하세요.')">🔔</button>
             </div>
         </div>
 
         <div class="nav-tabs">
             <button class="nav-btn active" onclick="showScreen('intro-screen', 0)">소개</button>
-            <button class="nav-btn" onclick="showScreen('naming-screen', 1)">작명</button>
-            <button class="nav-btn" onclick="showScreen('divination-screen', 2)">육효&부적</button>
-            <button class="nav-btn" onclick="showScreen('note-screen', 3)">공지</button>
+            <button class="nav-btn" onclick="showScreen('home-screen', 1)">홈</button>
+            <button class="nav-btn" onclick="showScreen('naming-screen', 2)">사주&작명</button>
+            <button class="nav-btn" onclick="showScreen('divination-screen', 3)">육효&부적</button>
+            <button class="nav-btn" onclick="showScreen('note-screen', 4)">공지</button>
         </div>
 
         <div class="content">
             <div id="intro-screen" class="screen active">
-                <h1 style="font-size: 36px; margin-bottom: 10px;">도영상담소</h1>
-                <p style="font-size: 18px; opacity: 0.9;">삶을 설계하는 라이프 아키텍트 도영🏛️</p>
-                <button onclick="showScreen('naming-screen', 1)" style="margin-top: 30px; padding: 12px 40px; border-radius: 25px; border: none; font-weight: bold; color: #667eea; cursor: pointer;">시작하기</button>
+                <div class="intro-content">
+                    <div class="intro-logo">✨</div>
+                    <h1 class="intro-title">도영상담소</h1>
+                    <p class="intro-subtitle">당신의 삶을 설계하는 시간<br><br>라이프 아키텍트 도영🏛️</p>
+                    <button class="intro-btn" onclick="showScreen('home-screen', 1)">시작하기</button>
+                </div>
+            </div>
+
+            <div id="home-screen" class="screen">
+                <div class="section">
+                    <h2 class="section-title">내 운명의 모든 길을 한눈에</h2>
+                    <div class="section-content">
+                        <p>30년의 통찰과 현대적 감각이 만나, 당신의 삶에 가장 선명한 해답을 제시합니다. <br><br>
+                        운세 상담부터 새 출발을 위한 작명까지,<br> 그리고 육효와 부적까지!<br> 도영 마스터의 모든 솔루션을 만나보세요.</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
             </div>
 
             <div id="naming-screen" class="screen">
-                <h2 class="section-title">작명 서비스</h2>
-                <div class="section-content">
-                    사주가 인생의 <span class="highlight">'기본 운영체제(OS)'</span>라면, 작명은 내 캐릭터의 능력치를 극대화하는 <span class="highlight">'최고급 커스텀 장비'</span>입니다! 🚀<br><br>
-                    태어날 때 주어진 사주가 조금 아쉽나요? 부족한 에너지를 채우고 장점은 떡상시켜줄 완벽한 오행 핏(Fit)으로 내 운명에 강력한 '버프(Buff)'를 걸어보세요.<br><br>
-                    단순히 예쁜 한자가 아닙니다. 내 환경과 완벽하게 매칭되어 나만의 고유한 주파수를 찾아주는 <b>퍼스널 브랜딩의 완성!</b> ✨<br><br>
-                    결정적 성공의 방아쇠를 당길 '맞춤형 네이밍'을 제안합니다.🎯
-                </div>
-                <a href="https://forms.gle/QgJkXu6n8UXowB2N6" target="_blank" class="btn-primary">📱 카카오톡 상담연결</a>
+                <h2 class="section-title">사주&작명 서비스</h2>
+                <div class="section-content">"사주가 인생의 '기본 운영체제(OS)'라면, 작명은 내 캐릭터의 능력치를 극대화하는 '최고급 커스텀 장비'입니다! 🚀<br> 태어날 때 주어진 사주가 조금 아쉽나요?<br>
+                     내 사주의 부족한 에너지를 채우고 장점은 떡상시켜줄 <br>완벽한 오행 핏(Fit)으로 내 운명에 강력한 '버프(Buff)'를 걸어보세요.<br> 단순히 예쁜 한자 조합이 아닙니다.<br> 내 환경과 완벽하게 매칭되어 나만의 고유한 주파수를 찾아주는 퍼스널 브랜딩의 완성! ✨<br>
+                      내 인생을 하드캐리해 줄 '맞춤형 네이밍'으로 결정적 성공의 방아쇠를 당기세요! 🎯"</div>
+                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
             </div>
 
             <div id="divination-screen" class="screen">
-                <h2 class="section-title">육효 & 부적</h2>
-                <div class="section-content">
-                    동양판 팩폭 끝판왕 <span class="highlight">'육효(六爻)'</span> 🔮<br>
-                    사주가 망원경이라면, 육효는 지금 당장의 고민을 꿰뚫는 <b>'실전 현미경'</b>입니다. 🔬<br><br>
-                    "오늘 연락할까?", "이 주식 지금 살까?" 같은 구체적인 질문에 타로보다 예리하게 답해줍니다. 정확한 YES/NO 타점과 타이밍(D-Day)을 짚어내세요. 🎯<br><hr style="margin: 20px 0; border: 0; border-top: 1px dashed #ddd;">
-                    내 운빨은 내가 커스텀한다! <span class="highlight">인생 최적화 패치, 부적</span><br>
-                    요즘 부적은 미래를 긍정적인 방향으로 가이드하는 '운명 커스터마이징 툴'입니다. 🛠️ 복잡한 세상 속 멘탈 로그아웃 방지용 장치를 만나보세요.
-                </div>
-                <a href="https://forms.gle/QgJkXu6n8UXowB2N6" target="_blank" class="btn-primary">📱 카카오톡 상담연결</a>
+                <h2 class="section-title">육효/부적 서비스</h2>
+                <div class="section-content">"서양에 타로 카드가 있다면, 동양에는 팩폭의 끝판왕 '육효(六爻)'가 있습니다! 🔮 <br><br>
+                    사주가 인생 전체를 그리는 '망원경'이라면, 육효는 지금 당장의 고민을 꿰뚫는 '실전 현미경'입니다. 🔬<br><br>
+                     "썸남에게 오늘 연락할까?", "이 주식 지금 살까?" 같은 구체적인 질문에 타로보다 훨씬 예리하게 답해줍니다. 단순한 힐링이나 위로가 아닙니다.<br><br>
+                      동양의 오랜 통계와 우주의 이치(오행)를 계산해 소름 돋는 YES/NO 타점과 정확한 타이밍(D-Day)까지 짚어냅니다. 🎯 <br><br>
+                      애매모호한 조언에 지치셨나요? 단 한 번의 클릭으로 명쾌한 해답을 얻으세요.<br><br> 당신의 결정적 순간, 육효가 가장 완벽한 내비게이션이 되어 드립니다! 🚀"
+                <br><br>
+                "내 운빨은 내가 커스텀한다! <br>인생 최적화 패치, 부적" 부적은 내 미래를 긍정적인 방향으로 가이드하는 '운명 커스터마이징 툴'이에요.<br><br> 복잡한 알고리즘 속에서 지친 당신을 위한 '멘탈 로그아웃' 방지용 장치라고 할까요?</div>
+                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
             </div>
 
             <div id="note-screen" class="screen">
                 <h2 class="section-title">공지사항</h2>
-                <div class="section-content">
-                    🏛️ <b>상담 안내</b><br><br>
-                    • 모든 상담은 100% 예약제로 진행됩니다.<br>
-                    • 상담 시간: 오전 10시 ~ 오후 8시<br>
-                    • 상담 분야: 사주, 작명, 개명, 육효, 부적<br><br>
-                    위 '카카오톡 상담연결' 버튼을 통해 구글 폼을 작성해 주시면 순차적으로 연락 드립니다.
-                </div>
+                <div class="section-content">모든 상담은 예약제로 진행됩니다.</div>
+                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
             </div>
         </div>
 
-        <div class="footer">
-            도영상담소 © 2026 | Life Architect Doyoung
-        </div>
+        <div class="footer"><div>도영상담소 © 2026 | 모든 상담은 예약제입니다.</div></div>
     </div>
 
     <script>
@@ -208,11 +120,11 @@
             screens.forEach(s => s.classList.remove('active'));
             const btns = document.querySelectorAll('.nav-btn');
             btns.forEach(b => b.classList.remove('active'));
-            
             document.getElementById(screenId).classList.add('active');
             btns[tabIndex].classList.add('active');
             document.querySelector('.content').scrollTop = 0;
         }
+        function contactKakao() { window.open('https://forms.gle/QgJkXu6n8UXowB2N6', '_blank'); }
     </script>
 </body>
 </html>
