@@ -70,6 +70,21 @@
         .btn { display: block; width: 100%; padding: 13px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; margin-top: 15px; }
         .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
         .footer { background: rgba(240, 240, 240, 0.9); padding: 15px 20px; text-align: center; font-size: 12px; color: #666; }
+/* 별을 반짝이게 하는 마법의 명령어 */
+.intro-logo {
+    animation: shine 1.5s ease-in-out infinite; /* 1.5초마다 무한 반복 */
+}
+
+@keyframes shine {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        filter: drop-shadow(0 0 5px rgba(255, 223, 0, 0.5));
+    }
+    50% { 
+        transform: scale(1.2) rotate(10deg); /* 크기가 커지면서 살짝 회전 */
+        filter: drop-shadow(0 0 20px rgba(255, 223, 0, 1)); /* 빛이 강해짐 */
+    }
+}
     </style>
 </head>
 <body>
@@ -77,7 +92,7 @@
         <div class="header">
             <div class="header-left">
                 <img src="dd1.png" alt="logo" class="header-logo-img">
-                <div class="header-title">도영상담소</div>
+                <div class="header-title">桃榮사주</div>
             </div>
             <div class="header-right">
                 <button class="header-btn" onclick="alert('공지 알림을 확인하세요.')">🔔</button>
@@ -87,16 +102,16 @@
         <div class="nav-tabs">
             <button class="nav-btn active" onclick="showScreen('intro-screen', 0)">🏛️소개</button>
             <button class="nav-btn" onclick="showScreen('home-screen', 1)">🏠홈</button>
-            <button class="nav-btn" onclick="showScreen('naming-screen', 2)">📜사주&작명</button>
-            <button class="nav-btn" onclick="showScreen('divination-screen', 3)">🔮육효&부적</button>
-            <button class="nav-btn" onclick="showScreen('note-screen', 4)">📢공지-해설</button>
+            <button class="nav-btn" onclick="showScreen('naming-screen', 2)">사주&작명</button>
+            <button class="nav-btn" onclick="showScreen('divination-screen', 3)">육효&부적</button>
+            <button class="nav-btn" onclick="showScreen('note-screen', 4)">공지-해설</button>
         </div>
 
         <div class="content">
             <div id="intro-screen" class="screen active">
                 <div class="intro-content">
                     <div class="intro-logo">✨</div>
-                    <h1 class="intro-title">🔮도영상담소🔮</h1>
+                    <h1 class="intro-title">🔮도영상담소</h1>
                     <p class="intro-subtitle">당신의 삶을 설계하는 시간<br><br>라이프 아키텍트 도영🏛️</p>
                     <button class="intro-btn" onclick="showScreen('home-screen', 1)">시작하기</button>
                 </div>
@@ -134,7 +149,7 @@
             </div>
 
             <div id="note-screen" class="screen">
-                <h2 class="section-title">공지사항</h2>
+                <h2 class="section-title">공지_해설</h2>
                 <div class="section-content">모든 상담은 예약제로 진행됩니다.🧬
 
 <br><br><div style="text-align: center; margin-top: 20px;">
