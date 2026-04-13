@@ -26,8 +26,37 @@
         .header-right { display: flex; gap: 15px; }
         .header-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; }
         .nav-tabs { display: flex; background: rgba(255, 255, 255, 0.9); border-bottom: 2px solid #e8e8e8; overflow-x: auto; position: sticky; top: 62px; z-index: 99; }
-        .nav-btn { flex: 1; padding: 13px 12px; border: none; background: none; cursor: pointer; font-size: 12px; font-weight: 600; color: #888; border-bottom: 3px solid transparent; white-space: nowrap; min-width: 70px; }
-        .nav-btn.active { color: #667eea; border-bottom-color: #667eea; background: rgba(102, 126, 234, 0.1); }
+       .nav-btn { 
+    flex: 1; 
+    padding: 15px 5px; 
+    border: none; 
+    background: none; 
+    cursor: pointer; 
+    font-size: 13px; 
+    font-weight: 600; 
+    color: #777; 
+    border-bottom: 3px solid transparent; 
+    transition: all 0.3s ease; /* 부드러운 변화 효과 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 마우스를 올리거나 활성화되었을 때 효과 */
+.nav-btn:hover, .nav-btn.active { 
+    color: #667eea; 
+    background: rgba(102, 126, 234, 0.08); /* 살짝 배경색이 올라옴 */
+    transform: translateY(-2px); /* 버튼이 살짝 위로 들리는 느낌 */
+}
+
+.nav-btn.active { 
+    border-bottom-color: #667eea; 
+    font-weight: 800; /* 글자를 더 두껍게 */
+}
+
+/* 누를 때 톡 터지는 느낌 (클릭 피드백) */
+.nav-btn:active {
+    transform: scale(0.95); /* 눌렀을 때 살짝 작아짐 */
+}
         .content { flex: 1; overflow-y: auto; padding: 0; }
         .screen { display: none; min-height: 100%; padding: 25px 20px; }
         .screen.active { display: block; }
