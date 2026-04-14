@@ -2,25 +2,35 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>도영상담소 리포트 뷰어. 좋은하루 되세요 ^.^) </title>
+    <title>도영상담소 리포트 뷰어 - 좋은 하루 되세요 ^.^</title>
     <style>
-        body { margin: 0; display: flex; justify-content: center; background: #f0f0f0; }
-        img { max-width: 100%; height: auto; }
+        body { margin: 0; display: flex; justify-content: center; background: #f0f0f0; min-height: 100vh; align-items: flex-start; }
+        img { max-width: 100%; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-    <img id="reportImage" src="">
+    <img id="reportImage" src="" alt="리포트 로딩 중...">
 
     <script>
-        // 주소창에서 파일 이름을 가져오는 마법의 코드
         const urlParams = new URLSearchParams(window.location.search);
-        const fileName = urlParams.get('file'); // 'file'이라는 변수 값을 읽음
+        let fileName = urlParams.get('file'); 
         
         if (fileName) {
-            // 이미지 경로를 동적으로 변경
-            document.getElementById('reportImage').src = "https://kt7941.github.io/saju/" + fileName + ".png";
+            // [중요] 이미 .png나 .jpg가 붙어있으면 그대로 쓰고, 없으면 .png를 붙여줍니다.
+            if (!fileName.includes('.')) {
+                fileName += ".png";
+            }
+            
+            // 이미지 주소를 생성합니다.
+            const imagePath = "https://kt7941.github.io/saju/" + fileName;
+            document.getElementById('reportImage').src = imagePath;
+
+            // 로딩 실패 시 알림 (오타 확인용)
+            document.getElementById('reportImage').onerror = function() {
+                alert("이미지를 찾을 수 없습니다: " + fileName + "\n파일명 대소문자를 확인해 주세요.");
+            };
         } else {
-            alert("파일 이름을 확인해주세요.");
+            alert("파일 이름(?file=파일명)이 주소에 없습니다.");
         }
     </script>
 </body>
