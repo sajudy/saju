@@ -1,71 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>도영상담소 리포트 뷰어. 좋은하루 되세요 ^.^</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" content="도영상담소 리포트 뷰어">
+    <meta property="og:description" content="좋은 하루 되세요 ^.^">
+    <meta property="og:image" content="https://sajudy.github.io/saju/bg01.jpg"> 
+    
+    <title>도영상담소 리포트 뷰어</title>
     <style>
-        /* 배경색 설정: #191970 (Midnight Blue) */
-        /* 글씨색 설정: white (하얀색) */
-        body { 
+        /* 화면 전체 배경을 깊은 남색으로 고정 */
+        html, body { 
             margin: 0; 
-            display: flex; 
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #191970 !important; 
+            color: #ffffff !important; /* 글씨 하얀색 */
+            display: flex;
             flex-direction: column;
-            justify-content: flex-start; 
             align-items: center;
-            background-color: #191970; 
-            color: white; 
-            min-height: 100vh;
             font-family: 'Malgun Gothic', sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 20px;
         }
-        
-        /* 이미지 상자 설정 */
         img { 
             max-width: 100%; 
             height: auto; 
             box-shadow: 0 0 30px rgba(0,0,0,0.5); 
-            margin-top: 20px;
+            margin-top: 10px;
+            display: none; /* 로딩 전까지 숨김 */
         }
-
-        .loading-text {
-            margin-top: 50px;
-            font-size: 1.2rem;
-        }
+        .msg { margin-top: 50px; font-size: 1.2rem; }
     </style>
 </head>
 <body>
-    <div id="statusMessage" class="loading-text">도영상담소 리포트를 불러오는 중입니다...</div>
-    <img id="reportImage" src="" style="display: none;">
+    <div class="container">
+        <div id="m" class="msg">도영 소장님의 리포트를 불러오는 중...</div>
+        <img id="i">
+    </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let fileName = urlParams.get('file'); 
-        
-        const reportImg = document.getElementById('reportImage');
-        const statusMsg = document.getElementById('statusMessage');
-
-        if (fileName) {
-            // 파일명에 확장자가 없으면 .png를 자동으로 붙여줌
-            if (!fileName.includes('.')) {
-                fileName += ".png";
-            }
+        const p = new URLSearchParams(window.location.search);
+        let f = p.get('file');
+        if(f) {
+            if(!f.includes('.')) f += ".png";
+            const img = document.getElementById('i');
+            const msg = document.getElementById('m');
             
-            const imagePath = "https://sajudy.github.io/saju/" + fileName;
-            
-            // 이미지 로딩 성공 시
-            reportImg.onload = function() {
-                statusMsg.style.display = 'none'; // 메시지 숨김
-                reportImg.style.display = 'block'; // 이미지 표시
+            img.onload = () => { 
+                msg.style.display = 'none'; 
+                img.style.display = 'block'; 
             };
-
-            // 이미지 로딩 실패 시
-            reportImg.onerror = function() {
-                statusMsg.innerText = "이미지를 찾을 수 없습니다: " + fileName + "\n파일명 대소문자를 확인해 주세요.";
+            img.onerror = () => { 
+                msg.innerText = "파일을 찾지 못했습니다: " + f; 
             };
-
-            reportImg.src = imagePath;
+            img.src = "https://kt7941.github.io/saju/" + f;
         } else {
-            statusMsg.innerText = "주소 뒤에 ?file=파일명 형식이 필요합니다.";
+            document.getElementById('m').innerText = "파일 이름을 확인해주세요.";
         }
     </script>
 </body>
