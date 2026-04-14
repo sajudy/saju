@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>도영상담소 리포트 뷰어. 좋은하루 되세요 ^.^) </title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; background: #f0f0f0; }
+        img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <img id="reportImage" src="">
+
+    <script>
+        // 주소창에서 파일 이름을 가져오는 마법의 코드
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileName = urlParams.get('file'); // 'file'이라는 변수 값을 읽음
+        
+        if (fileName) {
+            // 이미지 경로를 동적으로 변경
+            document.getElementById('reportImage').src = "https://kt7941.github.io/saju/" + fileName + ".png";
+        } else {
+            alert("파일 이름을 확인해주세요.");
+        }
+    </script>
+</body>
+</html>
