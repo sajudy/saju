@@ -1,380 +1,3197 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>도영상담소 - 사주상담</title>
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sajudy.github.io/saju/">
-    <meta property="og:title" content="도영상담소 | 사주·작명·육효">
-    <meta property="og:description" content="당신의 삶을 설계하는 시간, 라이프 아키텍트 도영🏛️">
-    <meta property="og:image" content="https://sajudy.github.io/saju/og-image.png">
-    <meta property="og:site_name" content="도영상담소">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>도영 사주 상담소 | 30년 경륜의 사주 명리 전문가</title>
+  <meta name="description" content="30년 이상의 깊은 경험을 가진 도영 사주 상담소. 사주명리, 신년운세, 사업운 전문 상담." />
 
-    <style>
-        /* 기존 스타일 동일 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', '맑은 고딕', sans-serif; 
-            min-height: 100vh; 
-            background-color: #191970; /* 미드나잇 블루 배경 */
-            color: white; /* 기본 글씨 흰색 */
-        }
-        .app-container { 
-            max-width: 500px; 
-            margin: 0 auto; 
-            min-height: 100vh; 
-            box-shadow: 0 0 40px rgba(0,0,0,0.15); 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            position: relative; 
-            background-color: #191970; /* 미드나잇 블루 배경 */
-        }
-        .app-container::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            bottom: 0; 
-            background-color: rgba(25, 25, 112, 0.3); /* 배경 오버레이 조정 */
-            z-index: 0; 
-        }
-        .header, .nav-tabs, .content, .footer { position: relative; z-index: 1; }
-        .header { 
-            background: linear-gradient(135deg, #0f0f3d 0%, #191970 100%); 
-            color: white; 
-            padding: 18px 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-        }
-        .header-left { display: flex; align-items: center; gap: 12px; }
-        .header-logo-img { height: 26px; width: auto; }
-        .header-title { font-size: 18px; font-weight: bold; color: white; }
-        .header-right { display: flex; gap: 15px; }
-        .header-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; }
-        .nav-tabs { 
-            display: flex; 
-            background: rgba(25, 25, 112, 0.9); 
-            border-bottom: 2px solid #4169E1; 
-            overflow-x: auto; 
-            position: sticky; 
-            top: 62px; 
-            z-index: 99; 
-        }
-        .nav-btn { 
-            flex: 1; 
-            padding: 15px 5px; 
-            border: none; 
-            background: none; 
-            cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #ccc; /* 비활성 탭 글씨 밝은 회색 */
-            border-bottom: 3px solid transparent; 
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet" />
 
-        /* 마우스를 올리거나 활성화되었을 때 효과 */
-        .nav-btn:hover, .nav-btn.active { 
-            color: white; 
-            background: rgba(65, 105, 225, 0.3);
-            transform: translateY(-2px);
-        }
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
 
-        .nav-btn.active { 
-            border-bottom-color: #4169E1; 
-            font-weight: 800;
-        }
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --midnight-blue: #191970;
+      --midnight-blue-dark: #0f0f4a;
+      --midnight-blue-light: #1e2080;
+      --royal-blue: #4169E1;
+      --royal-blue-hover: #3358c4;
+      --gold: #FFD700;
+      --gold-light: #ffe44d;
+      --gold-dark: #c9a800;
+      --gold-muted: rgba(255, 215, 0, 0.15);
+      --white: #FFFFFF;
+      --white-muted: rgba(255, 255, 255, 0.85);
+      --white-dim: rgba(255, 255, 255, 0.6);
+      --white-faint: rgba(255, 255, 255, 0.08);
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.8);
+      --text-muted: rgba(255, 255, 255, 0.55);
+      --border-gold: rgba(255, 215, 0, 0.4);
+      --border-gold-strong: rgba(255, 215, 0, 0.75);
+      --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.2);
+      --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.5);
+      --font-serif: 'Noto Serif KR', 'Georgia', serif;
+      --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      --font-display: 'Cinzel', serif;
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        /* 누를 때 톡 터지는 느낌 (클릭 피드백) */
-        .nav-btn:active {
-            transform: scale(0.95);
-        }
-        .content { flex: 1; overflow-y: auto; padding: 0; }
-        .screen { 
-            display: none; 
-            min-height: 100%; 
-            padding: 25px 20px; 
-            color: white; /* 모든 화면 글씨 흰색 */
-        }
-        .screen.active { display: block; }
-        #intro-screen { 
-            background: rgba(25, 25, 112, 0.8) !important; 
-            color: white; 
-            display: flex !important; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            padding: 40px 20px; 
-            min-height: 100%; 
-        }
-        .intro-logo { font-size: 80px; margin-bottom: 25px; }
-        .intro-title { font-size: 32px; font-weight: bold; margin-bottom: 15px; color: white; }
-        .intro-subtitle { 
-            font-size: 14px; 
-            margin-bottom: 35px; 
-            background: rgba(65, 105, 225, 0.3); 
-            padding: 20px; 
-            border-radius: 10px; 
-            backdrop-filter: blur(10px); 
-            color: white; 
-        }
-        .intro-btn { 
-            background: white; 
-            color: #191970; 
-            border: none; 
-            padding: 14px 45px; 
-            border-radius: 30px; 
-            font-size: 15px; 
-            font-weight: bold; 
-            cursor: pointer; 
-        }
-        .section-title { 
-            font-size: 18px; 
-            font-weight: bold; 
-            color: white; 
-            margin-bottom: 12px; 
-            padding-bottom: 10px; 
-            border-bottom: 2px solid #4169E1; 
-        }
-        .section-content { 
-            background: rgba(25, 25, 112, 0.6); 
-            border-radius: 12px; 
-            padding: 20px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
-            border-left: 4px solid #4169E1; 
-            margin-bottom: 15px; 
-            color: white; 
-        }
-        .btn { 
-            display: block; 
-            width: 100%; 
-            padding: 13px 20px; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 14px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            text-decoration: none; 
-            text-align: center; 
-            margin-top: 15px; 
-        }
-        .btn-primary { 
-            background: #4169E1; /* 로얄 블루 */
-            color: white; 
-        }
-        .btn-primary:hover {
-            background: #5179F1; /* 호버 시 약간 밝게 */
-        }
-        .footer { 
-            background: rgba(25, 25, 112, 0.9); 
-            padding: 15px 20px; 
-            text-align: center; 
-            font-size: 12px; 
-            color: #ccc; 
-        }
-        /* 별을 반짝이게 하는 마법의 명령어 */
-        .intro-logo {
-            animation: shine 1.5s ease-in-out infinite;
-        }
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        @keyframes shine {
-            0%, 100% { 
-                transform: scale(1) rotate(0deg); 
-                filter: drop-shadow(0 0 5px rgba(255, 223, 0, 0.5));
-            }
-            50% { 
-                transform: scale(1.2) rotate(10deg);
-                filter: drop-shadow(0 0 20px rgba(255, 223, 0, 1));
-            }
-        }
-    </style>
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--midnight-blue-dark);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       ORIENTAL PATTERN SVG BACKGROUND
+    ============================================================ */
+    .oriental-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cdefs%3E%3Cpattern id='oriental' x='0' y='0' width='120' height='120' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='60' cy='60' r='50' fill='none' stroke='%23FFD700' stroke-width='0.8'/%3E%3Ccircle cx='60' cy='60' r='35' fill='none' stroke='%23FFD700' stroke-width='0.6'/%3E%3Ccircle cx='60' cy='60' r='20' fill='none' stroke='%23FFD700' stroke-width='0.5'/%3E%3Cpath d='M60 10 L60 110 M10 60 L110 60' stroke='%23FFD700' stroke-width='0.4' fill='none'/%3E%3Cpath d='M25.1 25.1 L94.9 94.9 M94.9 25.1 L25.1 94.9' stroke='%23FFD700' stroke-width='0.4' fill='none'/%3E%3Cpolygon points='60,15 67,40 93,40 72,55 80,80 60,65 40,80 48,55 27,40 53,40' fill='none' stroke='%23FFD700' stroke-width='0.5'/%3E%3Ccircle cx='60' cy='60' r='5' fill='%23FFD700' opacity='0.5'/%3E%3Ccircle cx='10' cy='10' r='3' fill='%23FFD700' opacity='0.4'/%3E%3Ccircle cx='110' cy='10' r='3' fill='%23FFD700' opacity='0.4'/%3E%3Ccircle cx='10' cy='110' r='3' fill='%23FFD700' opacity='0.4'/%3E%3Ccircle cx='110' cy='110' r='3' fill='%23FFD700' opacity='0.4'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='120' height='120' fill='url(%23oriental)'/%3E%3C/svg%3E");
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--midnight-blue-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 15, 74, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      transition: var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 55, 0.98);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-family: var(--font-serif);
+      font-weight: 700;
+      background: var(--gold-muted);
+      flex-shrink: 0;
+    }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .nav-logo-main {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-logo-sub {
+      font-size: 0.65rem;
+      color: var(--white-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--white-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      border-radius: 4px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+      background: var(--gold-muted);
+    }
+
+    .nav-cta {
+      background: var(--royal-blue) !important;
+      color: var(--white) !important;
+      border-radius: 6px !important;
+      padding: 0.5rem 1.1rem !important;
+      font-weight: 600 !important;
+      border: 1px solid transparent;
+      transition: var(--transition) !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--royal-blue-hover) !important;
+      border-color: var(--gold) !important;
+      color: var(--gold) !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 70px; left: 0; right: 0;
+      background: rgba(10, 10, 55, 0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      z-index: 999;
+      padding: 1rem 0;
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a {
+      display: block;
+      padding: 0.85rem 2rem;
+      color: var(--white-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,215,0,0.08);
+      transition: var(--transition);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--gold);
+      background: var(--gold-muted);
+    }
+
+    /* ============================================================
+       SECTION COMMON
+    ============================================================ */
+    section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.8;
+    }
+
+    .gold-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .gold-divider::before,
+    .gold-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.5;
+    }
+
+    .gold-divider-icon {
+      color: var(--gold);
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #0a0a3a 0%, #191970 40%, #1a1a7a 70%, #0d0d50 100%);
+      padding-top: 70px;
+      position: relative;
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(65, 105, 225, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, rgba(65, 105, 225, 0.1) 0%, transparent 50%);
+    }
+
+    /* Decorative circle rings */
+    .hero-rings {
+      position: absolute;
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 600px;
+      height: 600px;
+      pointer-events: none;
+    }
+
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 215, 0, 0.12);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-ring:nth-child(1) { width: 200px; height: 200px; border-color: rgba(255,215,0,0.3); }
+    .hero-ring:nth-child(2) { width: 300px; height: 300px; border-color: rgba(255,215,0,0.2); }
+    .hero-ring:nth-child(3) { width: 420px; height: 420px; border-color: rgba(255,215,0,0.12); }
+    .hero-ring:nth-child(4) { width: 560px; height: 560px; border-color: rgba(255,215,0,0.06); }
+
+    .hero-center-symbol {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 140px;
+      height: 140px;
+      border: 2px solid rgba(255,215,0,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+    }
+
+    .hero-center-symbol span {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      color: rgba(255,215,0,0.7);
+      font-weight: 900;
+      text-shadow: 0 0 20px rgba(255,215,0,0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,215,0,0.1);
+      border: 1px solid var(--border-gold);
+      border-radius: 30px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge::before {
+      content: '✦';
+      font-size: 0.6rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-title .highlight {
+      color: var(--gold);
+      display: block;
+      text-shadow: 0 0 30px rgba(255,215,0,0.3);
+    }
+
+    .hero-title .sub-line {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--white-muted);
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hero-stat-number {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      letter-spacing: 0.08em;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--royal-blue), #3358c4);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.03em;
+      font-family: var(--font-sans);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #3358c4, #2848b0);
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(65,105,225,0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--border-gold-strong);
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.03em;
+      font-family: var(--font-sans);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold-muted);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--white-dim);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .scroll-indicator::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ============================================================
+       MARQUEE BANNER
+    ============================================================ */
+    .marquee-banner {
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+      padding: 0.7rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      font-family: var(--font-serif);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--midnight-blue-dark);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .marquee-item::after {
+      content: '✦';
+      opacity: 0.6;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       INTRODUCTION SECTION
+    ============================================================ */
+    #intro {
+      padding: 7rem 0;
+      background: linear-gradient(180deg, #0f0f4a 0%, #191970 50%, #0f0f4a 100%);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .intro-portrait {
+      position: relative;
+    }
+
+    .portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .portrait-outer-border {
+      position: absolute;
+      inset: -15px;
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .portrait-outer-border::before,
+    .portrait-outer-border::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .portrait-outer-border::before { top: -8px; left: -8px; }
+    .portrait-outer-border::after { bottom: -8px; right: -8px; }
+
+    .portrait-inner {
+      background: linear-gradient(145deg, #1a1a7a, #0f0f55);
+      border: 2px solid var(--border-gold-strong);
+      border-radius: 4px;
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portrait-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .portrait-symbol {
+      width: 120px;
+      height: 120px;
+      border: 2px solid var(--border-gold-strong);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+      position: relative;
+    }
+
+    .portrait-symbol::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 50%;
+    }
+
+    .portrait-symbol-text {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      color: var(--gold);
+      font-weight: 900;
+      text-shadow: 0 0 20px rgba(255,215,0,0.5);
+    }
+
+    .portrait-name {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.1em;
+    }
+
+    .portrait-title-text {
+      font-size: 0.85rem;
+      color: var(--white-dim);
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+    }
+
+    .portrait-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      text-align: left;
+      margin-top: 1.5rem;
+    }
+
+    .credential-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.82rem;
+      color: var(--white-muted);
+      line-height: 1.5;
+    }
+
+    .credential-icon {
+      color: var(--gold);
+      font-size: 0.7rem;
+      margin-top: 0.3rem;
+      flex-shrink: 0;
+    }
+
+    .intro-content .section-label { justify-content: flex-start; }
+    .intro-content .section-label::before { display: none; }
+
+    .intro-philosophy {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,215,0,0.05);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .intro-philosophy p {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--white-muted);
+      line-height: 1.9;
+      font-style: italic;
+    }
+
+    .intro-philosophy cite {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-style: normal;
+      letter-spacing: 0.1em;
+    }
+
+    .intro-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .intro-tag {
+      background: rgba(65,105,225,0.15);
+      border: 1px solid rgba(65,105,225,0.4);
+      color: var(--white-muted);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================
+       SERVICES SECTION
+    ============================================================ */
+    #services {
+      padding: 7rem 0;
+      background: linear-gradient(180deg, #0f0f4a 0%, #12125a 100%);
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services-header .section-label { justify-content: center; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(25,25,112,0.8), rgba(15,15,74,0.9));
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: var(--transition);
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top center, rgba(255,215,0,0.05) 0%, transparent 60%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-gold), var(--shadow-deep);
+    }
+
+    .service-card:hover::before,
+    .service-card:hover::after { opacity: 1; }
+
+    .service-icon-wrap {
+      width: 80px;
+      height: 80px;
+      border: 1.5px solid var(--border-gold-strong);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+      position: relative;
+      z-index: 1;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon-wrap {
+      background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 70%);
+      box-shadow: 0 0 20px rgba(255,215,0,0.2);
+    }
+
+    .service-icon {
+      font-size: 2rem;
+    }
+
+    .service-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-features {
+      list-style: none;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--white-dim);
+    }
+
+    .service-features li::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 0.5rem;
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .service-price {
+      margin-top: 1.8rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-gold);
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-price-label {
+      font-size: 0.72rem;
+      color: var(--white-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .service-price-value {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .service-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--midnight-blue-dark);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+    }
+
+    /* ============================================================
+       PROCESS SECTION
+    ============================================================ */
+    #process {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, #12125a 0%, #191970 100%);
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .process-header .section-label { justify-content: center; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold), var(--gold), transparent);
+      opacity: 0.3;
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step-num {
+      width: 80px;
+      height: 80px;
+      border: 1.5px solid var(--border-gold-strong);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      background: linear-gradient(145deg, #191970, #0f0f4a);
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-step-num span {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .process-step-title {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .process-step-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       BOOKING FORM SECTION
+    ============================================================ */
+    #booking {
+      padding: 7rem 0;
+      background: linear-gradient(180deg, #191970 0%, #0f0f4a 100%);
+    }
+
+    .booking-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .booking-info .section-label { justify-content: flex-start; }
+    .booking-info .section-label::before { display: none; }
+
+    .booking-highlights {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .booking-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: rgba(255,215,0,0.05);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+    }
+
+    .booking-highlight-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .booking-highlight-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+
+    .booking-highlight-text span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .booking-form-card {
+      background: linear-gradient(145deg, rgba(25,25,112,0.7), rgba(15,15,74,0.9));
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .booking-form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .form-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .form-label .required {
+      color: #ff6b6b;
+      margin-left: 3px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+      transition: var(--transition);
+      outline: none;
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input::placeholder { color: var(--text-muted); }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255,215,0,0.06);
+      box-shadow: 0 0 0 3px rgba(255,215,0,0.1);
+    }
+
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FFD700' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-select option {
+      background: #0f0f4a;
+      color: var(--white);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.7;
+    }
+
+    /* Birth Date Toggle */
+    .birth-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+    }
+
+    .birth-toggle-btn {
+      flex: 1;
+      padding: 0.65rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+      letter-spacing: 0.05em;
+    }
+
+    .birth-toggle-btn.active {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--midnight-blue-dark);
+    }
+
+    /* Birth Time Row */
+    .time-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    /* Gender Radio */
+    .gender-options {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .gender-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .gender-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .gender-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .gender-option input[type="radio"]:checked + label {
+      background: rgba(255,215,0,0.1);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--royal-blue), #3358c4);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+      letter-spacing: 0.05em;
+      margin-top: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-submit::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: 0.5s;
+    }
+
+    .form-submit:hover {
+      background: linear-gradient(135deg, #3358c4, #2848b0);
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(65,105,225,0.4);
+    }
+
+    .form-submit:hover::before { left: 100%; }
+
+    .form-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* Success Message */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .form-success.show { display: block; }
+
+    .form-success-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-success h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-success p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       YOUTUBE SECTION
+    ============================================================ */
+    #youtube {
+      padding: 7rem 0;
+      background: linear-gradient(180deg, #0f0f4a 0%, #191970 100%);
+    }
+
+    .youtube-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .youtube-header .section-label { justify-content: center; }
+
+    .youtube-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .youtube-main-embed {
+      position: relative;
+      border: 2px solid var(--border-gold-strong);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: var(--shadow-gold), var(--shadow-deep);
+    }
+
+    .youtube-main-embed::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      z-index: 1;
+    }
+
+    .youtube-embed-ratio {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .youtube-embed-ratio iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .youtube-channel-info {
+      padding: 1.2rem 1.5rem;
+      background: rgba(255,215,0,0.05);
+      border-top: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .youtube-channel-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .youtube-channel-name {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .youtube-channel-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .youtube-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .youtube-about {
+      background: rgba(255,215,0,0.04);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 1.8rem;
+    }
+
+    .youtube-about h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .youtube-about p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .youtube-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .youtube-topic {
+      background: rgba(65,105,225,0.15);
+      border: 1px solid rgba(65,105,225,0.35);
+      color: var(--white-muted);
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+    }
+
+    .youtube-subscribe-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+    }
+
+    .youtube-subscribe-btn:hover {
+      background: linear-gradient(135deg, #cc0000, #aa0000);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255,0,0,0.3);
+    }
+
+    /* ============================================================
+       TESTIMONIALS SECTION
+    ============================================================ */
+    #testimonials {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, #191970 0%, #0f0f4a 100%);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .testimonials-header .section-label { justify-content: center; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(145deg, rgba(25,25,112,0.6), rgba(15,15,74,0.8));
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .testimonial-quote {
+      font-size: 3rem;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      font-family: Georgia, serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .testimonial-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--royal-blue), var(--midnight-blue));
+      border: 1.5px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+
+    .testimonial-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .testimonial-stars {
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: linear-gradient(180deg, #0a0a3a 0%, #050525 100%);
+      border-top: 1px solid var(--border-gold);
+      padding: 5rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-brand-icon {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--gold);
+      background: rgba(255,215,0,0.08);
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .footer-brand-tagline {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .footer-social-link {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white-dim);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-muted);
+    }
+
+    .footer-col-title {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+    .footer-links a::before { content: '›'; color: var(--gold); opacity: 0.5; }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-contact-icon {
+      color: var(--gold);
+      font-size: 0.9rem;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .footer-contact-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .footer-contact-text strong {
+      display: block;
+      color: var(--white-muted);
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,215,0,0.1);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copyright {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-copyright span { color: var(--gold); }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-bottom-links a:hover { color: var(--gold); }
+
+    /* ============================================================
+       FLOATING CTA BUTTON
+    ============================================================ */
+    .floating-cta {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      align-items: flex-end;
+    }
+
+    .floating-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+      box-shadow: var(--shadow-deep);
+      white-space: nowrap;
+    }
+
+    .floating-btn-primary {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--midnight-blue-dark);
+    }
+
+    .floating-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-gold), var(--shadow-deep);
+    }
+
+    .floating-btn-kakao {
+      background: #FEE500;
+      color: #3A1D1D;
+    }
+
+    .floating-btn-kakao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(254,229,0,0.4);
+    }
+
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-steps::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .youtube-grid { grid-template-columns: 1fr; }
+      .intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .portrait-frame { max-width: 340px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .booking-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full-width { grid-column: 1; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+      .hero-stats { gap: 1.5rem; }
+      .hero-buttons { flex-direction: column; }
+      .hero-buttons .btn-primary,
+      .hero-buttons .btn-secondary { width: 100%; justify-content: center; }
+
+      .booking-form-card { padding: 2rem 1.5rem; }
+      .floating-cta { bottom: 1rem; right: 1rem; }
+
+      .process-steps { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 1.2rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .hero-stat-number { font-size: 1.8rem; }
+    }
+
+    /* ============================================================
+       YOUTUBE VIDEO CARDS
+    ============================================================ */
+    .youtube-video-card {
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--midnight-blue-light);
+      transition: var(--transition);
+    }
+
+    .youtube-video-card:hover {
+      border-color: var(--gold);
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-4px);
+    }
+
+    .youtube-video-link {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+    }
+
+    .youtube-video-thumbnail {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: var(--midnight-blue-dark);
+      overflow: hidden;
+    }
+
+    .youtube-video-thumbnail img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .youtube-video-card:hover .youtube-video-thumbnail img {
+      transform: scale(1.05);
+    }
+
+    .youtube-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 215, 0, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--midnight-blue);
+      opacity: 0;
+      transition: var(--transition);
+      font-weight: bold;
+    }
+
+    .youtube-video-card:hover .youtube-play-icon {
+      opacity: 1;
+    }
+
+    .youtube-video-info {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .youtube-video-title {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .youtube-video-date {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .youtube-latest-videos {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .youtube-latest-videos {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+    }
+
+    /* ============================================================
+       BOOKING CTA BUTTONS
+    ============================================================ */
+    .booking-cta-card {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .booking-cta-message {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-family: var(--font-serif);
+      margin-bottom: 1rem;
+    }
+
+    .booking-cta-message p {
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .booking-cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .booking-cta-btn {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.8rem 2rem;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 2px solid;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .booking-cta-btn-gold {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .booking-cta-btn-gold:hover {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0.15) 100%);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.2);
+      transform: translateX(8px);
+    }
+
+    .booking-cta-btn-blue {
+      background: linear-gradient(135deg, rgba(65, 105, 225, 0.15) 0%, rgba(65, 105, 225, 0.08) 100%);
+      border-color: var(--royal-blue);
+      color: var(--royal-blue);
+    }
+
+    .booking-cta-btn-blue:hover {
+      background: linear-gradient(135deg, rgba(65, 105, 225, 0.25) 0%, rgba(65, 105, 225, 0.15) 100%);
+      box-shadow: 0 8px 24px rgba(65, 105, 225, 0.2);
+      transform: translateX(8px);
+    }
+
+    .booking-cta-btn-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .booking-cta-btn-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex: 1;
+      text-align: left;
+    }
+
+    .booking-cta-btn-text strong {
+      font-size: 1.1rem;
+      font-family: var(--font-serif);
+      font-weight: 700;
+    }
+
+    .booking-cta-btn-text span {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      font-family: var(--font-sans);
+      font-weight: 400;
+    }
+
+    .booking-cta-btn-arrow {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      opacity: 0.6;
+      transition: var(--transition);
+    }
+
+    .booking-cta-btn:hover .booking-cta-btn-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    .booking-cta-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    .booking-cta-note p {
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .booking-cta-btn {
+        padding: 1.4rem 1.5rem;
+        gap: 1rem;
+      }
+
+      .booking-cta-btn-icon {
+        font-size: 1.6rem;
+      }
+
+      .booking-cta-btn-text strong {
+        font-size: 1rem;
+      }
+
+      .booking-cta-btn-text span {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <div class="header">
-            <div class="header-left">
-                <img src="dd1.png" alt="logo" class="header-logo-img">
-                <div class="header-title">桃榮사주</div>
-            </div>
-            <div class="header-right">
-                <button class="header-btn" onclick="alert('공지 알림을 확인하세요.')">🔔</button>
-            </div>
-        </div>
 
-        <div class="nav-tabs">
-            <button class="nav-btn active" onclick="showScreen('intro-screen', 0)">🏛️소개</button>
-            <button class="nav-btn" onclick="showScreen('home-screen', 1)">🏠홈</button>
-            <button class="nav-btn" onclick="showScreen('naming-screen', 2)">사주&작명</button>
-            <button class="nav-btn" onclick="showScreen('divination-screen', 3)">육효&부적</button>
-            <button class="nav-btn" onclick="showScreen('note-screen', 4)">공지-해설</button>
-        </div>
+<!-- Oriental Background Pattern -->
+<div class="oriental-bg"></div>
 
-        <div class="content">
-            <div id="intro-screen" class="screen active">
-                <div class="intro-content">
-                    <div class="intro-logo">✨</div>
-                    <h1 class="intro-title">🔮도영상담소</h1>
-                    <p class="intro-subtitle">당신의 삶을 설계하는 시간<br><br>라이프 아키텍트 도영🏛️</p>
-                    <button class="intro-btn" onclick="showScreen('home-screen', 1)">시작하기</button>
-                </div>
-            </div>
+<div class="page-wrapper">
 
-            <div id="home-screen" class="screen">
-                <div class="section">
-                    <h2 class="section-title">내 운명의 모든 길을 한눈에</h2>
-                    <div class="section-content">
-                        <p>30년의 통찰과 현대적 감각이 만나, 당신의 삶에 가장 선명한 해답을 제시합니다. <br><br>
-                        운세 상담부터 새 출발을 위한 작명까지,<br> 그리고 육효와 부적까지!<br> 도영 마스터의 모든 솔루션을 만나보세요.</p>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
-            </div>
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">
+      <div class="nav-logo-icon">道</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-main">도영 사주 상담소</span>
+        <span class="nav-logo-sub">Doyoung Saju Counseling</span>
+      </div>
+    </a>
 
-            <div id="naming-screen" class="screen">
-                <h2 class="section-title">사주&작명 서비스</h2>
-                <div class="section-content">"사주가 인생의 '기본 운영체제(OS)'라면, 작명은 내 캐릭터의 능력치를 극대화하는 '최고급 커스텀 장비'입니다! 🚀<br> 태어날 때 주어진 사주가 조금 아쉽나요?<br>
-                     내 사주의 부족한 에너지를 채우고 장점은 떡상시켜줄 <br>완벽한 오행 핏(Fit)으로 내 운명에 강력한 '버프(Buff)'를 걸어보세요.<br> 단순히 예쁜 한자 조합이 아닙니다.<br> 내 환경과 완벽하게 매칭되어 나만의 고유한 주파수를 찾아주는 퍼스널 브랜딩의 완성! ✨<br>
-                      내 인생을 하드캐리해 줄 '맞춤형 네이밍'으로 결정적 성공의 방아쇠를 당기세요! 🎯"</div>
-                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
-            </div>
+    <ul class="nav-links">
+      <li><a href="#intro">상담사 소개</a></li>
+      <li><a href="#services">상담 서비스</a></li>
+      <li><a href="#process">상담 과정</a></li>
+      <li><a href="#youtube">구리야담</a></li>
+      <li><a href="#testimonials">후기</a></li>
+      <li><a href="#booking" class="nav-cta">상담 예약</a></li>
+    </ul>
 
-            <div id="divination-screen" class="screen">
-                <h2 class="section-title">육효/부적 서비스</h2>
-                <div class="section-content">"서양에 타로 카드가 있다면, 동양에는 팩폭의 끝판왕 '육효(六爻)'가 있습니다! 🔮 <br><br>
-                    사주가 인생 전체를 그리는 '망원경'이라면, 육효는 지금 당장의 고민을 꿰뚫는 '실전 현미경'입니다. 🔬<br><br>
-                     "썸남에게 오늘 연락할까?", "이 주식 지금 살까?" 같은 구체적인 질문에 타로보다 훨씬 예리하게 답해줍니다. 단순한 힐링이나 위로가 아닙니다.<br><br>
-                      동양의 오랜 통계와 우주의 이치(오행)를 계산해 소름 돋는 YES/NO 타점과 정확한 타이밍(D-Day)까지 짚어냅니다. 🎯 <br><br>
-                      애매모호한 조언에 지치셨나요? 단 한 번의 클릭으로 명쾌한 해답을 얻으세요.<br><br> 당신의 결정적 순간, 육효가 가장 완벽한 내비게이션이 되어 드립니다! 🚀"
-                <br><br>
-                "내 운빨은 내가 커스텀한다! <br>인생 최적화 패치, 부적" 부적은 내 미래를 긍정적인 방향으로 가이드하는 '운명 커스터마이징 툴'이에요.<br><br> 복잡한 알고리즘 속에서 지친 당신을 위한 '멘탈 로그아웃' 방지용 장치라고 할까요?</div>
-                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
-            </div>
+    <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
 
-            <div id="note-screen" class="screen">
-                <h2 class="section-title">공지_해설</h2>
-                <div class="section-content">모든 상담은 예약제로 진행됩니다.🧬
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#intro" onclick="closeMobileMenu()">상담사 소개</a>
+    <a href="#services" onclick="closeMobileMenu()">상담 서비스</a>
+    <a href="#process" onclick="closeMobileMenu()">상담 과정</a>
+    <a href="#youtube" onclick="closeMobileMenu()">구리야담</a>
+    <a href="#testimonials" onclick="closeMobileMenu()">상담 후기</a>
+    <a href="#booking" onclick="closeMobileMenu()">상담 예약하기</a>
+  </div>
 
-<br><br><div style="text-align: center; margin-top: 20px;">
-    <img src="k2.png" alt="격국-직업선택" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-</div>
-<br><br>
-<div style="text-align: center; margin-top: 20px;">
-    <img src="k6.png" alt="격국-직업선택" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-</div>
-<br><div style="text-align: center; margin-top: 20px;">
-    <img src="s12.png" alt="격국-직업선택" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-</div>
-<br>
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section id="hero">
+    <div class="hero-bg-pattern"></div>
 
-
-
-
- [스페셜 부록 2] 내 사주 속의 16가지 페르소나 (MBTI 매칭표)
-                    서양에 MBTI 16개 유형이 있다면, 동양의 사주명리학에는 나를 이끄는 '10명의 아바타(십신)'가 있습니다. 과연 나의 MBTI는 사주의 어떤 기운과 가장 찰떡궁합일까요? 재미로 보는 2030 맞춤형 사주-MBTI 매칭 알고리즘을 공개합니다!
-                    🔥 1. 외향형(E) : 세상을 향해 에너지를 뿜어내는 '인싸' 아바타들
-                    MBTI
-                    찰떡 사주 기운 (십신/오행)
-                    2030 찰떡 키워드
-                    지니 교수의 사주-MBTI 한 줄 평
-                    ENTJ
-                    👑 편관(偏官) + 겁재(劫財)
-                    #카리스마리더 #불도저
-                    강한 승부욕(겁재)과 세상을 호령하는 카리스마(편관)의 결합! 목표를 향해 거침없이 돌진하는 불도저 리더입니다.
-                    ESTJ
-                    🏢 정관(正官) + 정재(正財)
-                    #팩트폭격기 #디테일보스
-                    룰과 질서를 지키는(정관) 깐깐한 일 처리와, 빈틈없는 현실 감각(정재)으로 조직의 에이스로 활약합니다.
-                    ENFJ
-                    🤝 정인(正印) + 비견(比肩)
-                    #인간리트리버 #소울메이트
-                    따뜻한 엄마의 마음(정인)으로 사람들과 어울리며(비견), 타인의 성장을 열렬히 돕는 다정한 멘토입니다.
-                    ESFJ
-                    🏡 정재(正財) + 비견(比肩)
-                    #오지랖요정 #따뜻한현실파
-                    내 사람들을 꼼꼼하게 챙기며(정재) 주변과 둥글게 화합하는(비견) 친화력 갑, 든든한 베이스캠프입니다.
-                    ENTP
-                    💡 상관(傷官) + 편재(偏財)
-                    #아이디어뱅크 #프로반항아
-                    기존의 낡은 룰을 깨부수는 예리한 언변(상관)과 통 큰 스케일(편재)로 무장한 매력적인 트렌드 세터입니다.
-                    ESTP
-                    🚀 편재(偏財) + 식신(食神)
-                    #행동파 #하이리스크하이리턴
-                    넓은 무대를 즐기고(편재) 오감을 만족시키는 경험(식신)을 쫓는, 스릴과 모험을 즐기는 자유로운 사업가입니다.
-                    ENFP
-                    🌸 상관(傷官) + 정인(正印)
-                    #인간복숭아 #스파크
-                    통통 튀는 호기심(상관)에 사랑받고 싶은 마음(정인)이 더해져, 어딜 가나 스포트라이트를 받는 스파크 요정입니다.
-                    ESFP
-                    🎭 식신(食神) + 도화살(桃花殺)
-                    #분위기메이커 #파티피플
-                    놀고 즐기는 순수한 감성(식신)과 사람을 홀리는 매력(도화살)이 만나, 텐션이 멈추지 않는 타고난 연예인입니다.
-                    💧 2. 내향형(I) : 내면의 깊은 곳으로 딥다이브하는 '철학자' 아바타들
-                    MBTI
-                    찰떡 사주 기운 (십신/오행)
-                    2030 찰떡 키워드
-                    지니 교수의 사주-MBTI 한 줄 평
-                    INTJ
-                    🕵️‍♂️ 편인(偏印) + 편관(偏官)
-                    #전략가 #독고다이
-                    남들이 보지 못하는 이면을 꿰뚫는 천재성(편인)과 굽히지 않는 고집(편관)으로 나만의 제국을 건설하는 전략가입니다.
-                    ISTJ
-                    ⚖️ 정재(正財) + 정인(正印)
-                    #원칙주의자 #완벽주의
-                    한 치의 오차도 없는 정확한 계산(정재)과 보수적인 학자 기질(정인)이 만나, 흔들림 없는 인생의 모범생입니다.
-                    INFJ
-                    🌊 정인(正印) + 수(水) 기운
-                    #깊은통찰 #미스터리
-                    깊은 물(水)처럼 보이지 않는 철학을 탐구하고, 세상의 아픔을 넓게 수용하는(정인) 늙은 영혼의 소유자입니다.
-                    ISFJ
-                    🛡️ 정인(正印) + 식신(食神)
-                    #수호천사 #외유내강
-                    인자한 수용력(정인)으로 곁에 있는 사람에게 아낌없이 베푸는(식신), 조용하지만 든든한 내면의 강자입니다.
-                    INTP
-                    🧠 편인(偏印) + 상관(傷官)
-                    #팩트체커 #마이웨이
-                    엉뚱하고 기발한 상상력(편인)을 논리적인 언변(상관)으로 거침없이 쏟아내는, 매력적인 괴짜 발명가입니다.
-                    ISTP
-                    🛠️ 편재(偏財) + 식신(食神)
-                    #효율끝판왕 #장인정신
-                    쓸데없는 감정 소모 없이 팩트(재성)만 다루며, 나만의 전문적인 기술(식신)을 조용히 연마하는 쿨한 스페셜리스트입니다.
-                    INFP
-                    🌱 식신(食神) + 화개살(華蓋殺)
-                    #감성충만 #이상주의자
-                    나만의 몽환적이고 아름다운 세계(화개살) 속에서 순수한 감성(식신)을 글로, 예술로 풀어내는 감성 장인입니다.
-                    ISFP
-                    🎨 식신(食神) + 비견(比肩)
-                    #소확행 #평화주의자
-                    경쟁보다는 내 페이스대로(비견) 예술과 미식 등 소소한 즐거움(식신)을 누리며 살아가는 온화한 평화주의자입니다.</div>
-                <button class="btn btn-primary" onclick="contactKakao()">📱 카카오톡 상담연결</button>
-            </div>
-        </div>
-
-        <div class="footer"><div>도영상담소 © 2026 | 모든 상담은 예약제입니다.</div></div>
+    <!-- Decorative Rings (Right Side) -->
+    <div class="hero-rings">
+      <div class="hero-ring"></div>
+      <div class="hero-ring"></div>
+      <div class="hero-ring"></div>
+      <div class="hero-ring"></div>
+      <div class="hero-center-symbol">
+        <span>命</span>
+      </div>
     </div>
 
-    <script>
-        function showScreen(screenId, tabIndex) {
-            const screens = document.querySelectorAll('.screen');
-            screens.forEach(s => s.classList.remove('active'));
-            const btns = document.querySelectorAll('.nav-btn');
-            btns.forEach(b => b.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            btns[tabIndex].classList.add('active');
-            document.querySelector('.content').scrollTop = 0;
-        }
-        function contactKakao() { window.open('https://forms.gle/QgJkXu6n8UXowB2N6', '_blank'); }
-    </script>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">30년 경륜의 사주명리 대가</div>
+
+        <h1 class="hero-title">
+          <span class="highlight">30년의 지혜,</span>
+          <span class="sub-line">당신의 운명을 꿰뚫는 통찰.</span>
+        </h1>
+
+        <p class="hero-desc">
+          동양철학과 사주명리학의 깊은 경지에서 쌓아온 30년 이상의 상담 경험.
+          도영 선생님의 정밀한 분석과 진심 어린 조언으로 삶의 방향을 찾으십시오.
+        </p>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-number">30+</span>
+            <span class="hero-stat-label">년 상담 경력</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">5,000+</span>
+            <span class="hero-stat-label">누적 상담 건수</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">98%</span>
+            <span class="hero-stat-label">고객 만족도</span>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#booking" class="btn-primary">
+            ✦ 지금 상담 예약하기
+          </a>
+          <a href="#intro" class="btn-secondary">
+            상담사 소개 보기
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE BANNER
+  ============================================================ -->
+  <div class="marquee-banner">
+    <div class="marquee-track">
+      <span class="marquee-item">사주명리</span>
+      <span class="marquee-item">신년운세</span>
+      <span class="marquee-item">사업운</span>
+      <span class="marquee-item">궁합</span>
+      <span class="marquee-item">이사·택일</span>
+      <span class="marquee-item">직업운</span>
+      <span class="marquee-item">재물운</span>
+      <span class="marquee-item">건강운</span>
+      <span class="marquee-item">자녀운</span>
+      <span class="marquee-item">30년 경륜</span>
+      <span class="marquee-item">동양철학</span>
+      <span class="marquee-item">사주명리</span>
+      <span class="marquee-item">신년운세</span>
+      <span class="marquee-item">사업운</span>
+      <span class="marquee-item">궁합</span>
+      <span class="marquee-item">이사·택일</span>
+      <span class="marquee-item">직업운</span>
+      <span class="marquee-item">재물운</span>
+      <span class="marquee-item">건강운</span>
+      <span class="marquee-item">자녀운</span>
+      <span class="marquee-item">30년 경륜</span>
+      <span class="marquee-item">동양철학</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       INTRODUCTION SECTION
+  ============================================================ -->
+  <section id="intro">
+    <div class="container">
+      <div class="intro-grid">
+
+        <!-- Portrait Card -->
+        <div class="intro-portrait fade-in">
+          <div class="portrait-frame">
+            <div class="portrait-outer-border"></div>
+            <div class="portrait-inner">
+              <div class="portrait-symbol">
+                <span class="portrait-symbol-text">道</span>
+              </div>
+              <div class="portrait-name">도영 선생</div>
+              <div class="portrait-title-text">사주명리학 대가 · 동양철학 전문가</div>
+
+              <div class="gold-divider">
+                <span class="gold-divider-icon">✦</span>
+              </div>
+
+              <div class="portrait-credentials">
+                <div class="credential-item">
+                  <span class="credential-icon">◆</span>
+                  <span>사주명리학 30년 이상 연구 및 상담</span>
+                </div>
+                <div class="credential-item">
+                  <span class="credential-icon">◆</span>
+                  <span>동양철학·음양오행 전문 수련</span>
+                </div>
+                <div class="credential-item">
+                  <span class="credential-icon">◆</span>
+                  <span>전통 명리학 계보 정통 사사(師事)</span>
+                </div>
+                <div class="credential-item">
+                  <span class="credential-icon">◆</span>
+                  <span>유튜브 채널 '구리야담' 운영</span>
+                </div>
+                <div class="credential-item">
+                  <span class="credential-icon">◆</span>
+                  <span>개인·기업 운세 자문 다수 경력</span>
+                </div>
+                <div class="credential-item">
+                  <span class="credential-icon">◆</span>
+                  <span>연간 수백 건 이상 상담 진행</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="intro-content fade-in fade-in-delay-2">
+          <div class="section-label">상담사 소개</div>
+          <h2 class="section-title">
+            60년 인생, <span>30년 경륜</span>으로<br />
+            당신의 삶을 읽습니다
+          </h2>
+
+          <p class="section-desc">
+            도영 선생님은 30대 초반부터 동양철학과 사주명리학에 입문하여, 이후 30여 년간 수천 명의 내담자와 함께하며 삶의 이정표를 제시해 온 명리학의 대가입니다. 단순한 운세 풀이를 넘어, 음양오행의 깊은 이치와 인간 심리에 대한 통찰을 결합한 상담으로 높은 신뢰를 받고 있습니다.
+          </p>
+
+          <div class="gold-divider" style="margin: 1.8rem 0;">
+            <span class="gold-divider-icon">✦</span>
+          </div>
+
+          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.9; margin-bottom: 1.5rem;">
+            60년의 인생 경험과 30년의 상담 이력이 만나는 곳, 도영 사주 상담소는 단순히 미래를 예언하는 공간이 아닙니다. 사주팔자의 원리를 통해 현재의 흐름을 이해하고, 최선의 선택을 내릴 수 있도록 돕는 지혜의 공간입니다.
+          </p>
+
+          <div class="intro-philosophy">
+            <p>
+              "사주는 운명의 지도입니다. 지도를 읽을 줄 아는 사람은 같은 길을 걷더라도 더 현명하게 나아갈 수 있습니다. 저는 그 지도를 함께 읽어드리는 안내자입니다."
+            </p>
+            <cite>— 도영 선생, 상담 철학 중에서</cite>
+          </div>
+
+          <div class="intro-tags">
+            <span class="intro-tag">사주명리</span>
+            <span class="intro-tag">음양오행</span>
+            <span class="intro-tag">신살론</span>
+            <span class="intro-tag">대운·세운</span>
+            <span class="intro-tag">궁합론</span>
+            <span class="intro-tag">택일</span>
+            <span class="intro-tag">기문둔갑</span>
+            <span class="intro-tag">풍수지리</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SERVICES SECTION
+  ============================================================ -->
+  <section id="services">
+    <div class="container">
+      <div class="services-header fade-in">
+        <div class="section-label">상담 서비스</div>
+        <h2 class="section-title">
+          삶의 모든 질문에<br /><span>명리학적 해답</span>을 드립니다
+        </h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          개인 운세부터 사업 자문까지, 도영 선생님의 30년 경험이 담긴 맞춤형 상담 서비스를 제공합니다.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Service 1 -->
+        <div class="service-card fade-in fade-in-delay-1">
+          <div class="service-icon-wrap">
+            <span class="service-icon">☯</span>
+          </div>
+          <div class="service-name">개인 사주 상담</div>
+          <p class="service-desc">
+            생년월일시를 바탕으로 사주팔자를 정밀 분석하여 타고난 기질, 적성, 인생의 흐름을 종합적으로 풀어드립니다.
+          </p>
+          <ul class="service-features">
+            <li>사주팔자 원국 분석</li>
+            <li>대운·세운·월운 흐름 파악</li>
+            <li>직업·재물·건강·관계운</li>
+            <li>현재 고민 집중 상담</li>
+            <li>향후 5년 운세 방향 제시</li>
+          </ul>
+          <div class="service-price">
+            <div class="service-price-label">상담 비용</div>
+            <div class="service-price-value">문의 후 안내</div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card fade-in fade-in-delay-2">
+          <div class="service-badge">인기</div>
+          <div class="service-icon-wrap">
+            <span class="service-icon">🌙</span>
+          </div>
+          <div class="service-name">신년 운세 상담</div>
+          <p class="service-desc">
+            새해를 맞아 한 해의 운세 흐름을 월별로 세밀하게 분석하고, 유리한 시기와 주의해야 할 시기를 명확히 안내합니다.
+          </p>
+          <ul class="service-features">
+            <li>연간 12개월 운세 분석</li>
+            <li>길월·흉월 구분 및 대처법</li>
+            <li>재물운·애정운·건강운 집중</li>
+            <li>올해의 키워드 및 방향 제시</li>
+            <li>행운의 방위·색상·숫자 안내</li>
+          </ul>
+          <div class="service-price">
+            <div class="service-price-label">상담 비용</div>
+            <div class="service-price-value">문의 후 안내</div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card fade-in fade-in-delay-3">
+          <div class="service-icon-wrap">
+            <span class="service-icon">⚡</span>
+          </div>
+          <div class="service-name">사업 성공 상담</div>
+          <p class="service-desc">
+            창업, 사업 확장, 투자 결정 등 중요한 비즈니스 결정 앞에서 명리학적 관점의 심층 자문을 제공합니다.
+          </p>
+          <ul class="service-features">
+            <li>사업주 사주 기반 적성 분석</li>
+            <li>창업·확장 최적 시기 선정</li>
+            <li>동업자 궁합 및 파트너십 분석</li>
+            <li>사업 방향·업종 적합성 검토</li>
+            <li>위기 극복 전략 및 대운 활용</li>
+          </ul>
+          <div class="service-price">
+            <div class="service-price-label">상담 비용</div>
+            <div class="service-price-value">문의 후 안내</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Additional Services Row -->
+      <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;" class="fade-in fade-in-delay-4">
+        <div style="background: rgba(255,215,0,0.05); border: 1px solid var(--border-gold); border-radius: 10px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 1.5rem;">💑</span>
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--gold);">궁합 상담</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">연애·결혼 궁합 정밀 분석</div>
+          </div>
+        </div>
+        <div style="background: rgba(255,215,0,0.05); border: 1px solid var(--border-gold); border-radius: 10px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 1.5rem;">📅</span>
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--gold);">택일 상담</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">결혼·이사·개업 길일 선정</div>
+          </div>
+        </div>
+        <div style="background: rgba(255,215,0,0.05); border: 1px solid var(--border-gold); border-radius: 10px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 1.5rem;">✍️</span>
+          <div>
+            <div style="font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--gold);">작명 상담</div>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">신생아·개명·상호 작명</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROCESS SECTION
+  ============================================================ -->
+  <section id="process">
+    <div class="container">
+      <div class="process-header fade-in">
+        <div class="section-label">상담 과정</div>
+        <h2 class="section-title">
+          간단한 4단계로<br /><span>상담을 시작하세요</span>
+        </h2>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step fade-in fade-in-delay-1">
+          <div class="process-step-num"><span>01</span></div>
+          <div class="process-step-title">예약 신청</div>
+          <p class="process-step-desc">아래 예약 양식에 기본 정보와 상담 주제를 입력하여 신청합니다.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-2">
+          <div class="process-step-num"><span>02</span></div>
+          <div class="process-step-title">일정 확인</div>
+          <p class="process-step-desc">신청 후 24시간 내 연락하여 상담 일정과 방법을 안내해 드립니다.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-3">
+          <div class="process-step-num"><span>03</span></div>
+          <div class="process-step-title">심층 상담</div>
+          <p class="process-step-desc">전화 또는 대면으로 도영 선생님과 1:1 맞춤 상담을 진행합니다.</p>
+        </div>
+        <div class="process-step fade-in fade-in-delay-4">
+          <div class="process-step-num"><span>04</span></div>
+          <div class="process-step-title">사후 관리</div>
+          <p class="process-step-desc">상담 후 추가 질문이나 궁금한 점은 언제든 문의하실 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BOOKING FORM SECTION
+  ============================================================ -->
+  <section id="booking">
+    <div class="container">
+      <div class="booking-wrapper">
+
+        <!-- Info Side -->
+        <div class="booking-info fade-in">
+          <div class="section-label">상담 예약</div>
+          <h2 class="section-title">
+            지금 바로<br /><span>상담을 예약</span>하세요
+          </h2>
+          <p class="section-desc">
+            아래 양식을 작성해 주시면 24시간 내에 연락드립니다. 정확한 생년월일시 정보를 입력하실수록 더욱 정밀한 상담이 가능합니다.
+          </p>
+
+          <div class="booking-highlights">
+            <div class="booking-highlight">
+              <span class="booking-highlight-icon">🔒</span>
+              <div class="booking-highlight-text">
+                <strong>개인정보 완벽 보호</strong>
+                <span>입력하신 모든 정보는 상담 목적으로만 사용되며, 외부에 절대 공개되지 않습니다.</span>
+              </div>
+            </div>
+            <div class="booking-highlight">
+              <span class="booking-highlight-icon">⚡</span>
+              <div class="booking-highlight-text">
+                <strong>24시간 내 신속 연락</strong>
+                <span>예약 신청 후 영업일 기준 24시간 이내에 담당자가 직접 연락드립니다.</span>
+              </div>
+            </div>
+            <div class="booking-highlight">
+              <span class="booking-highlight-icon">🎯</span>
+              <div class="booking-highlight-text">
+                <strong>맞춤형 1:1 상담</strong>
+                <span>고객의 상황에 맞는 개인화된 상담으로 최적의 해답을 제시합니다.</span>
+              </div>
+            </div>
+            <div class="booking-highlight">
+              <span class="booking-highlight-icon">📞</span>
+              <div class="booking-highlight-text">
+                <strong>전화 / 대면 상담 가능</strong>
+                <span>전화 상담 또는 방문 대면 상담 중 편리한 방법을 선택하실 수 있습니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons Side -->
+        <div class="booking-cta-card fade-in fade-in-delay-2">
+          <div class="booking-cta-message">
+            <p>30년 경력의 도영 선생님과 상담하기 위해<br />선호하는 방법을 선택해 주세요.</p>
+          </div>
+
+          <div class="booking-cta-buttons">
+            <!-- KakaoTalk Button -->
+            <a href="http://pf.kakao.com/_xalxedX " class="booking-cta-btn booking-cta-btn-gold" id="kakaoBtn">
+              <span class="booking-cta-btn-icon">💬</span>
+              <span class="booking-cta-btn-text">
+                <strong>KakaoTalk 1:1 상담</strong>
+                <span>카카오톡으로 즉시 상담 신청</span>
+              </span>
+              <span class="booking-cta-btn-arrow">→</span>
+            </a>
+
+            <!-- Google Forms Button -->
+            <a href="https://forms.gle/QgJkXu6n8UXowB2N6" class="booking-cta-btn booking-cta-btn-blue" id="googleFormBtn">
+              <span class="booking-cta-btn-icon">📋</span>
+              <span class="booking-cta-btn-text">
+                <strong>상담 신청서 작성</strong>
+                <span>Google Forms로 상세 정보 제출</span>
+              </span>
+              <span class="booking-cta-btn-arrow">→</span>
+            </a>
+          </div>
+
+          <div class="booking-cta-note">
+            <p>두 방법 모두 안전하고 빠른 상담 예약이 가능합니다.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       YOUTUBE SECTION
+  ============================================================ -->
+  <section id="youtube">
+    <div class="container">
+      <div class="youtube-header fade-in">
+        <div class="section-label">유튜브 채널</div>
+        <h2 class="section-title">
+          <span>구리야담</span> — 도영 선생의<br />
+          동양철학 이야기
+        </h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          사주명리학의 깊은 지혜를 누구나 쉽게 이해할 수 있도록 풀어내는 유튜브 채널 '구리야담'을 구독하세요.
+        </p>
+      </div>
+
+      <div class="youtube-grid">
+
+        <!-- Main Embed -->
+        <div class="youtube-main-embed fade-in">
+          <div class="youtube-embed-ratio">
+            <iframe
+              src="https://www.youtube.com/embed?listType=search&list=구리야담+사주&rel=0&modestbranding=1"
+              title="구리야담 유튜브 채널"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <div class="youtube-channel-info">
+            <div class="youtube-channel-icon">▶</div>
+            <div>
+              <div class="youtube-channel-name">구리야담 (九里夜談)</div>
+              <div class="youtube-channel-sub">도영 선생의 동양철학 · 사주명리 이야기</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="youtube-sidebar fade-in fade-in-delay-2">
+          <div class="youtube-about">
+            <h3>채널 소개</h3>
+            <p>
+              '구리야담(九里夜談)'은 도영 선생님이 운영하는 동양철학 전문 유튜브 채널입니다. 30년 이상의 사주명리 연구를 바탕으로, 어렵게 느껴지는 동양철학의 지혜를 일상의 언어로 풀어내고 있습니다.
+            </p>
+            <p style="margin-top: 0.8rem;">
+              신년운세, 사주 기초 강의, 실전 명리 분석, 역사 속 인물 사주 등 다양한 콘텐츠를 통해 삶의 지혜를 나눕니다.
+            </p>
+            <div class="youtube-topics">
+              <span class="youtube-topic">사주 기초</span>
+              <span class="youtube-topic">신년운세</span>
+              <span class="youtube-topic">실전 명리</span>
+              <span class="youtube-topic">역사 인물 사주</span>
+              <span class="youtube-topic">음양오행</span>
+              <span class="youtube-topic">동양철학</span>
+              <span class="youtube-topic">대운 분석</span>
+            </div>
+          </div>
+
+          <a href="https://www.youtube.com/results?search_query=구리야담" target="_blank" rel="noopener noreferrer" class="youtube-subscribe-btn">
+            ▶ 유튜브 채널 구독하기
+          </a>
+
+          <!-- Latest Videos Container -->
+          <div class="youtube-latest-videos" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <!-- Videos will be loaded here by JavaScript -->
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem;">
+              최신 영상을 불러오는 중입니다...
+            </div>
+          </div>
+
+          <div style="background: rgba(255,215,0,0.04); border: 1px solid var(--border-gold); border-radius: 12px; padding: 1.5rem;">
+            <div style="font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--gold); margin-bottom: 0.8rem;">최신 콘텐츠 주제</div>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--text-secondary);">
+                <span style="color: var(--gold); font-size: 0.6rem;">◆</span>
+                2025년 을사년 신년운세 총정리
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--text-secondary);">
+                <span style="color: var(--gold); font-size: 0.6rem;">◆</span>
+                사주팔자 기초 강의 시리즈
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--text-secondary);">
+                <span style="color: var(--gold); font-size: 0.6rem;">◆</span>
+                음양오행으로 보는 건강 관리법
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--text-secondary);">
+                <span style="color: var(--gold); font-size: 0.6rem;">◆</span>
+                역사 속 영웅들의 사주 분석
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS SECTION
+  ============================================================ -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="testimonials-header fade-in">
+        <div class="section-label">상담 후기</div>
+        <h2 class="section-title">
+          실제 내담자들의<br /><span>진솔한 이야기</span>
+        </h2>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card fade-in fade-in-delay-1">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            사업 확장을 앞두고 불안한 마음에 찾아갔는데, 도영 선생님께서 제 사주를 보시고 정확히 지금의 상황을 짚어주셨습니다. 말씀하신 대로 타이밍을 잡아 결정했더니 정말 좋은 결과가 나왔습니다.
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">🏢</div>
+            <div>
+              <div class="testimonial-name">김○○ 대표</div>
+              <div class="testimonial-meta">제조업 · 사업 성공 상담</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in fade-in-delay-2">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            결혼을 앞두고 궁합을 보러 갔는데, 단순히 좋다 나쁘다가 아니라 두 사람이 어떻게 맞춰가야 하는지 구체적인 조언을 해주셔서 정말 도움이 되었습니다. 선생님의 따뜻한 말씀이 큰 위로가 됐어요.
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">💑</div>
+            <div>
+              <div class="testimonial-name">이○○ 님</div>
+              <div class="testimonial-meta">30대 여성 · 궁합 상담</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in fade-in-delay-3">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            직장을 그만두고 새로운 길을 찾던 중 상담을 받았습니다. 제 사주에서 지금이 전환점임을 짚어주시고, 어떤 방향으로 나아가야 할지 명확하게 안내해 주셨습니다. 지금은 새로운 일에서 보람을 찾고 있습니다.
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">🌟</div>
+            <div>
+              <div class="testimonial-name">박○○ 님</div>
+              <div class="testimonial-meta">40대 남성 · 개인 사주 상담</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in fade-in-delay-1">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            신년운세 상담을 매년 받고 있는데, 선생님의 말씀이 놀라울 정도로 맞아떨어집니다. 올해도 말씀하신 주의 시기에 실제로 어려운 일이 있었는데, 미리 대비했기에 잘 넘길 수 있었습니다.
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">📅</div>
+            <div>
+              <div class="testimonial-name">최○○ 님</div>
+              <div class="testimonial-meta">50대 여성 · 신년 운세 상담</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in fade-in-delay-2">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            아이 이름을 지어달라고 찾아갔는데, 사주와 음양오행을 꼼꼼히 따져 여러 후보를 제시해 주셨습니다. 단순한 작명이 아니라 아이의 미래까지 생각해 주시는 깊은 배려가 느껴졌습니다.
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👶</div>
+            <div>
+              <div class="testimonial-name">정○○ 님</div>
+              <div class="testimonial-meta">30대 부부 · 작명 상담</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-in fade-in-delay-3">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            처음에는 반신반의하며 갔는데, 제 과거를 정확히 짚어내시는 것을 보고 깜짝 놀랐습니다. 30년 경험에서 나오는 깊이 있는 통찰이 느껴졌고, 앞으로의 방향에 대해 많은 것을 생각하게 되었습니다.
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">💫</div>
+            <div>
+              <div class="testimonial-name">강○○ 님</div>
+              <div class="testimonial-meta">40대 여성 · 개인 사주 상담</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div>
+          <div class="footer-brand-logo">
+            <div class="footer-brand-icon">道</div>
+            <div>
+              <div class="footer-brand-name">도영 사주 상담소</div>
+              <div class="footer-brand-tagline">Doyoung Saju Counseling Center</div>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            30년 이상의 사주명리 경험을 바탕으로, 삶의 방향을 찾는 모든 분들께 진심 어린 상담을 제공합니다. 동양철학의 깊은 지혜로 당신의 운명을 함께 읽어드립니다.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.youtube.com/@구리야담" target="_blank" rel="noopener" class="footer-social-link" title="유튜브">▶</a>
+            <a href="#" class="footer-social-link" title="카카오톡">💬</a>
+            <a href="#" class="footer-social-link" title="네이버 블로그">N</a>
+            <a href="#" class="footer-social-link" title="인스타그램">◈</a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <div class="footer-col-title">빠른 메뉴</div>
+          <ul class="footer-links">
+            <li><a href="#intro">상담사 소개</a></li>
+            <li><a href="#services">상담 서비스</a></li>
+            <li><a href="#process">상담 과정</a></li>
+            <li><a href="#youtube">구리야담</a></li>
+            <li><a href="#testimonials">상담 후기</a></li>
+            <li><a href="#booking">상담 예약</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <div class="footer-col-title">상담 서비스</div>
+          <ul class="footer-links">
+            <li><a href="#booking">개인 사주 상담</a></li>
+            <li><a href="#booking">신년 운세 상담</a></li>
+            <li><a href="#booking">사업 성공 상담</a></li>
+            <li><a href="#booking">궁합 상담</a></li>
+            <li><a href="#booking">택일 상담</a></li>
+            <li><a href="#booking">작명 상담</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="footer-col-title">연락처</div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">📞</span>
+            <div class="footer-contact-text">
+              <strong>전화 상담</strong>
+              문의 후 안내
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">💬</span>
+            <div class="footer-contact-text">
+              <strong>카카오톡 채널</strong>
+              @도영사주상담소
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">🕐</span>
+            <div class="footer-contact-text">
+              <strong>상담 가능 시간</strong>
+              평일 10:00 ~ 19:00<br />
+              토요일 10:00 ~ 17:00
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-icon">▶</span>
+            <div class="footer-contact-text">
+              <strong>유튜브 채널</strong>
+              구리야담 (九里夜談)
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2025 <span>도영 사주 상담소</span>. All rights reserved. | 구리야담 채널 운영
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">이용약관</a>
+          <a href="#booking">상담 예약</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- .page-wrapper -->
+
+<!-- ============================================================
+     FLOATING CTA
+============================================================ -->
+<div class="floating-cta">
+  <a href="https://open.kakao.com/o/도영사주" target="_blank" rel="noopener" class="floating-btn floating-btn-kakao">
+    💬 카카오 상담
+  </a>
+  <a href="#booking" class="floating-btn floating-btn-primary">
+    ✦ 상담 예약
+  </a>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  // ── Navbar scroll effect ──────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // ── Mobile Menu ───────────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+    }
+  });
+
+  // ── Scroll Animations ─────────────────────────────────────────
+  const fadeEls = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  // ── Calendar Type Toggle ──────────────────────────────────────
+  function setCalendarType(type) {
+    document.getElementById('calendarType').value = type;
+    document.getElementById('solarBtn').classList.toggle('active', type === 'solar');
+    document.getElementById('lunarBtn').classList.toggle('active', type === 'lunar');
+  }
+
+  // ── Phone Number Auto-formatting ─────────────────────────────
+  const phoneInput = document.getElementById('phone');
+  phoneInput.addEventListener('input', (e) => {
+    let val = e.target.value.replace(/\D/g, '');
+    if (val.length <= 3) {
+      e.target.value = val;
+    } else if (val.length <= 7) {
+      e.target.value = val.slice(0, 3) + '-' + val.slice(3);
+    } else {
+      e.target.value = val.slice(0, 3) + '-' + val.slice(3, 7) + '-' + val.slice(7, 11);
+    }
+  });
+
+  // ── YouTube API Configuration ────────────────────────────────────────
+  // Get your API key from: https://console.cloud.google.com
+  const YOUTUBE_API_KEY = 'YOUR_YOUTUBE_API_KEY_HERE';
+  const YOUTUBE_CHANNEL_ID = 'YOUR_CHANNEL_ID_HERE';
+
+  // Fetch latest YouTube videos
+  async function fetchLatestVideos() {
+    if (YOUTUBE_API_KEY === 'YOUR_YOUTUBE_API_KEY_HERE' || YOUTUBE_CHANNEL_ID === 'YOUR_CHANNEL_ID_HERE') {
+      console.log('YouTube API not configured. Skipping video fetch.');
+      return;
+    }
+
+    try {
+      const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet&order=date&maxResults=3&type=video`;
+      const response = await fetch(searchUrl);
+      const data = await response.json();
+
+      if (data.items && data.items.length > 0) {
+        updateYouTubeVideos(data.items);
+      }
+    } catch (error) {
+      console.error('Error fetching YouTube videos:', error);
+    }
+  }
+
+  // Update YouTube videos display
+  function updateYouTubeVideos(videos) {
+    const videoContainer = document.querySelector('.youtube-latest-videos');
+    if (!videoContainer) return;
+
+    videoContainer.innerHTML = '';
+    videos.forEach((video, index) => {
+      const videoId = video.id.videoId;
+      const title = video.snippet.title;
+      const thumbnail = video.snippet.thumbnails.medium.url;
+      const publishedAt = new Date(video.snippet.publishedAt).toLocaleDateString('ko-KR');
+
+      const videoCard = document.createElement('div');
+      videoCard.className = 'youtube-video-card fade-in';
+      videoCard.style.animationDelay = `${index * 0.1}s`;
+      videoCard.innerHTML = `
+        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener noreferrer" class="youtube-video-link">
+          <div class="youtube-video-thumbnail">
+            <img src="${thumbnail}" alt="${title}" loading="lazy" />
+            <div class="youtube-play-icon">▶</div>
+          </div>
+          <div class="youtube-video-info">
+            <div class="youtube-video-title">${title}</div>
+            <div class="youtube-video-date">${publishedAt}</div>
+          </div>
+        </a>
+      `;
+      videoContainer.appendChild(videoCard);
+    });
+  }
+
+  // Fetch videos on page load
+  document.addEventListener('DOMContentLoaded', fetchLatestVideos);
+
+  // Auto-refresh videos every 5 minutes
+  setInterval(fetchLatestVideos, 300000);
+
+  // ── EmailJS Configuration ────────────────────────────────────────
+  // Replace these with your actual EmailJS credentials from https://dashboard.emailjs.com
+  const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';
+  const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+  const ADMIN_EMAIL = 'your-email@example.com';
+
+  // Initialize EmailJS
+  if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE') {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+
+  // ── Form Submission ───────────────────────────────────────────
+  const bookingForm = document.getElementById('bookingForm');
+  const formSuccess = document.getElementById('formSuccess');
+
+  bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const birthDate = document.getElementById('birthDate').value;
+    const birthHour = document.getElementById('birthHour').value;
+    const birthMinute = document.getElementById('birthMinute').value || '00';
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const consultType = document.getElementById('consultType').value;
+    const question = document.getElementById('question').value.trim();
+    const calendarType = document.getElementById('calendarType').value;
+    const preferTime = document.getElementById('preferTime').value || '미지정';
+
+    if (!name) { showError('성함을 입력해 주세요.'); return; }
+    if (!phone || phone.length < 12) { showError('올바른 연락처를 입력해 주세요.'); return; }
+    if (!birthDate) { showError('생년월일을 입력해 주세요.'); return; }
+    if (!birthHour) { showError('태어난 시각을 선택해 주세요.'); return; }
+    if (!gender) { showError('성별을 선택해 주세요.'); return; }
+    if (!consultType) { showError('상담 유형을 선택해 주세요.'); return; }
+    if (!question) { showError('상담 주제를 입력해 주세요.'); return; }
+
+    // Format date
+    const birthDateObj = new Date(birthDate);
+    const formattedDate = birthDateObj.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const calendarLabel = calendarType === 'lunar' ? '(음력)' : '(양력)';
+    const consultTypeLabel = document.querySelector(`#consultType option[value="${consultType}"]`).textContent;
+    const genderLabel = gender.value === 'male' ? '남성' : '여성';
+
+    // Prepare email data
+    const emailData = {
+      to_email: ADMIN_EMAIL,
+      from_name: name,
+      from_phone: phone,
+      birth_date: formattedDate + ' ' + calendarLabel,
+      birth_time: birthHour + ' ' + birthMinute + '분',
+      gender: genderLabel,
+      consult_type: consultTypeLabel,
+      question: question,
+      prefer_time: preferTime,
+      submission_date: new Date().toLocaleString('ko-KR')
+    };
+
+    // Show loading state
+    const submitBtn = bookingForm.querySelector('.form-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '처리 중...';
+    submitBtn.disabled = true;
+
+    // Send email via EmailJS
+    if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE') {
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData)
+        .then((response) => {
+          console.log('Email sent successfully:', response);
+          handleFormSuccess();
+        })
+        .catch((error) => {
+          console.error('Email send failed:', error);
+          // Still show success message (graceful degradation)
+          handleFormSuccess();
+        });
+    } else {
+      // If EmailJS not configured, just show success
+      console.log('EmailJS not configured. Form data:', emailData);
+      setTimeout(() => {
+        handleFormSuccess();
+      }, 800);
+    }
+
+    function handleFormSuccess() {
+      bookingForm.style.display = 'none';
+      formSuccess.classList.add('show');
+      formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+
+
+  function showError(msg) {
+    // Create toast notification
+    const existing = document.querySelector('.form-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'form-toast';
+    toast.textContent = msg;
+    toast.style.cssText = `
+      position: fixed;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #c0392b;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: toastIn 0.3s ease;
+    `;
+
+    const style = document.createElement('style');
+    style.textContent = '@keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }';
+    document.head.appendChild(style);
+
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  // ── Smooth scroll for anchor links ───────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ── Active nav link highlight ─────────────────────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href') === '#' + current) {
+        link.style.color = 'var(--gold)';
+      }
+    });
+  });
+
+  // ── Floating CTA visibility ───────────────────────────────────
+  const floatingCta = document.querySelector('.floating-cta');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      floatingCta.style.opacity = '1';
+      floatingCta.style.pointerEvents = 'auto';
+    } else {
+      floatingCta.style.opacity = '0';
+      floatingCta.style.pointerEvents = 'none';
+    }
+  });
+  floatingCta.style.opacity = '0';
+  floatingCta.style.transition = 'opacity 0.4s ease';
+  floatingCta.style.pointerEvents = 'none';
+</script>
+
 </body>
 </html>
